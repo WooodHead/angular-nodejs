@@ -10,10 +10,9 @@ module.exports = function(sequelize, DataTypes) {
         classMethods: {
             associate: function(models) {
                 // associations can be defined here
+                User.hasMany(models.Post);
             }
-        },
-        charset: 'utf8',
-        collate: 'utf8_unicode_ci'
+        }
     });
     return User;
 };

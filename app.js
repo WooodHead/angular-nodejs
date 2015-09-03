@@ -2,29 +2,54 @@ var http = require("http"),
 	path = require('path'),
 	logger = require('morgan'),
 	express = require('express'),
-	cookieParser = require('cookie-parser');
+	methodOverride = require('method-override'),
+	Resource = require('express-resource'),
+	cookieParser = require('cookie-parser'),
+	bodyParser = require('body-parser');
 
-app = express();
+
+var app = express(),
+	admin = express(),
+	api = express();
+
+var partials = require('./routes/partials');
+
+app.use('/admin', admin);
+admin.use('/api/v1', api);
+
 app.use(cookieParser());
-
-var tag = require('./routes/tag'),
-	post = require('./routes/post');
 
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(logger('dev'));
+app.use(methodOverride());
+//app.use('/assets', express.static(path.join(__dirname, 'public')));
+
+admin.set('views', path.join(__dirname, 'views', 'admin'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', function(req, res) {
-	res.render('layout', {
-		title: 'Hey',
-		message: 'Hello there!'
-	});
-});
+api.use(bodyParser.urlencoded({
+	'extended': 'true'
+}));
 
-app.use('tag', tag);
+api.use(bodyParser.json({
+	type: 'application/vnd.api+json'
+}));
 
+
+//admin.get('/', partials.index);
+
+
+//Admin route
+admin.get('/partials/:controller/:action?', partials.partials);
+
+
+// Api route
+api.resource('tag', require('./resources/api/tag'));
+
+admin.get('*', partials.index);
+//app.get('*', partials.index);
 
 var server = app.listen(3000, function() {
 	var host = server.address().address;

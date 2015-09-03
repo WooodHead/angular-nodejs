@@ -16,7 +16,8 @@ module.exports = function(grunt) {
                 src: [
                     'public/js/app.js',
                     'public/js/appRoute.js',
-                    'public/js/controllers/**/*.js'
+                    'public/js/controllers/**/*.js',
+                    'public/js/services/**/*.js'
                 ],
                 dest: 'public/dist/js/app.js'
             }

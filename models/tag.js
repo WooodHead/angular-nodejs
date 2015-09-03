@@ -4,6 +4,7 @@ module.exports = function(sequelize, DataTypes) {
         name: DataTypes.STRING,
         slug: DataTypes.STRING
     }, {
+        timestamps: true,
         classMethods: {
             associate: function(models) {
                 // associations can be defined here

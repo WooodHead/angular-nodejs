@@ -1,0 +1,55 @@
+div(ng-controller='PostController' ng-init='getList()')
+	.box.box-success
+		.box-header.with-border
+			h3.box-title List Post
+			| 			
+			a.pull-right.btn.btn-success(ng-href='/admin/post/create')
+				i.fa.fa-plus
+		| 		
+		.box-body
+			table.table.table-hover.table-striped.datatable
+				thead
+					tr
+						th ID
+						| 						
+						th Name
+						| 						
+						th Category
+						| 						
+						th Author
+						| 						
+						th Option
+				| 				
+				tfoot
+					tr
+						th ID
+						| 						
+						th Name
+						| 						
+						th Category
+						| 						
+						th Author
+						| 						
+						th Option
+				|                 
+				tbody
+					tr(dir-paginate='post in posts | itemsPerPage: itemsPerPage' total-items='totalItems' current-page='currentPage')
+						td(ng-bind='post.id')
+						|                 		
+						td(ng-bind='post.name')
+						|                 		
+						td
+							span.label.label-primary(ng-repeat='category in post.categories' ng-bind='category.name')
+						|                 		
+						td(ng-bind='post.user.name')
+						|                 		
+						td
+							.btn-group
+								a.btn.btn-info(ng-href='/admin/post/{{post.id}}/edit')
+									i.fa.fa-pencil
+								| 								
+								a.btn.btn-danger(ng-click='remove(post)')
+									i.fa.fa-trash
+		| 		
+		.box-footer
+			dir-pagination-controls(boundary-links='true' on-page-change='pageChanged(newPageNumber)')

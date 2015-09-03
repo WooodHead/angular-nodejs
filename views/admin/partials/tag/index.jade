@@ -1,0 +1,57 @@
+.row(ng-controller='TagController' ng-init='getList()')
+	.col-sm-12.col-md-12.col-lg-12
+		.box.box-default
+			.box-header.with-border
+				a.pull-right.btn.btn-success(ng-href='/admin/tag/create')
+					i.fa.fa-plus
+			|             
+			.box-body
+				label
+					| Search:
+					input(ng-model='query')
+				|                 
+				table.table.table-hover
+					thead
+						tr
+							th #
+							|                             
+							th ID
+							|                             
+							th Name
+							|                             
+							th Slug
+							|                             
+							th Option
+					|                     
+					tfoot
+						tr
+							th #
+							|                             
+							th ID
+							|                             
+							th Name
+							|                             
+							th Slug
+							|                             
+							th Option
+					|                     
+					tbody
+						tr(ng-repeat='tag in tags | filter:query | orderBy:orderProp')
+							td
+								input(type='checkbox')
+							|                             
+							td(ng-bind='tag.id')
+							|                             
+							td(ng-bind='tag.name')
+							|                             
+							td(ng-bind='tag.slug')
+							|                             
+							td
+								.btn-group
+									a.btn.btn-primary(ng-href='/admin/tag/{{tag.id}}/edit')
+										i.fa.fa-pencil
+									|                                     
+									a.btn.btn-danger(ng-click='remove(tag)')
+										i.fa.fa-trash
+			|             
+			.box-footer

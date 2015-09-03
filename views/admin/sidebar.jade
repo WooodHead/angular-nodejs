@@ -1,0 +1,83 @@
+// Left side column. contains the logo and sidebar
+aside.main-sidebar(ng-controller='NavigationController')
+	// sidebar: style can be found in sidebar.less
+	section.sidebar
+		// Sidebar user panel
+		.user-panel
+			.pull-left.image
+				img.img-circle(ng-src='{{authUser.image}}' alt='User Image')
+			|             
+			.pull-left.info
+				p(ng-bind='authUser.name')
+				|                 
+				a(ng-href='#')
+					i.fa.fa-circle.text-success
+					|  Online
+		// search form
+		form.sidebar-form(action='#' method='get')
+			.input-group
+				input.form-control(type='text' name='q' placeholder='Search...')
+				|                 
+				span.input-group-btn
+					button#search-btn.btn.btn-flat(type='submit' name='search')
+						i.fa.fa-search
+		// /.search form
+		// sidebar menu: : style can be found in sidebar.less
+		ul.sidebar-menu
+			li.header MAIN NAVIGATION
+			|             
+			li(ng-class="{active:isActive('/admin/dashboard')}")
+				a(ng-href='/admin/dashboard')
+					i.fa.fa-dashboard
+					|  
+					span Dashboard
+			|             
+			li.treeview(ng-class="{active:isActive('/admin/content')}")
+				a(ng-href='#')
+					i.fa.fa-newspaper-o
+					|                     
+					span Content
+					|                     
+					i.fa.fa-angle-left.pull-right
+				|                 
+				ul.treeview-menu
+					li(ng-class="{active:isActive('/admin/category')}")
+						a(ng-href='/admin/category')
+							i.fa.fa-file
+							|  Category
+					|                     
+					li(ng-class="{active:isActive('/admin/post')}")
+						a(ng-href='/admin/post')
+							i.fa.fa-files-o
+							|  Post
+			|             
+			li(ng-class="{active:isActive('/admin/comment')}")
+				a(ng-href='/admin/comment')
+					i.fa.fa-comments
+					|  
+					span Comment
+			|             
+			li(ng-class="{active:isActive('/admin/tag')}")
+				a(ng-href='/admin/tag')
+					i.fa.fa-tags
+					|  
+					span Tag
+			|             
+			li(ng-class="{active:isActive('/admin/permission')}")
+				a(ng-href='/admin/permission')
+					i.fa.fa-key
+					|  
+					span Permission
+			|             
+			li(ng-class="{active:isActive('/admin/role')}")
+				a(ng-href='/admin/role')
+					i.fa.fa-gavel
+					|  
+					span Role
+			|             
+			li(ng-class="{active:isActive('/admin/user-manager')}")
+				a(ng-href='/admin/user-manager')
+					i.fa.fa-users
+					|  
+					span User manager
+	// /.sidebar

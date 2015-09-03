@@ -1,0 +1,51 @@
+<div ng-controller="PostController" ng-init="getList()">
+	<div class="box box-success">
+		<div class="box-header with-border">
+			<h3 class="box-title">List Post</h3>
+			<a ng-href="/admin/post/create" class="pull-right btn btn-success"><i class="fa fa-plus"></i></a>
+		</div>
+		<div class="box-body">
+			<table class="table table-hover table-striped datatable">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Category</th>
+						<th>Author</th>
+						<th>Option</th>
+					</tr>
+				</thead>
+				<tfoot>
+                    <tr>
+                    	<th>ID</th>
+						<th>Name</th>
+						<th>Category</th>
+						<th>Author</th>
+						<th>Option</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                	<tr dir-paginate="post in posts | itemsPerPage: itemsPerPage" total-items="totalItems" current-page="currentPage">
+                		<td ng-bind="post.id"></td>
+                		<td ng-bind="post.name"></td>
+                		<td>
+                			<span class="label label-primary" ng-repeat="category in post.categories" ng-bind="category.name"></span>
+                		</td>
+                		<td ng-bind="post.user.name"></td>
+                		<td>
+                			<div class="btn-group">
+                				<a ng-href="/admin/post/{{post.id}}/edit" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+								<a ng-click="remove(post)" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                			</div>
+
+                		</td>
+                	</tr>
+                </tbody>
+			</table>
+		</div>
+		<div class="box-footer">
+			<dir-pagination-controls boundary-links="true" on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
+		</div>
+	</div>
+</div>
+

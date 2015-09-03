@@ -1,0 +1,18 @@
+div(ng-controller='AuthController')
+	.col-md-offset-4.col-sm-3.col-md-3.col-lg-3
+		form(ng-submit='login()')
+			.form-group
+				label(for='email') Email
+				| 				
+				input.form-control(type='text' ng-model='login.email')
+				| 				
+				p.text-danger(ng-bind='errors.email')
+			| 			
+			.form-group
+				label(for='password') Password
+				| 				
+				input.form-control(type='password' ng-model='login.password')
+				| 				
+				p.text-danger(ng-bind='errors.password')
+			| 			
+			button.btn.btn-primary Login

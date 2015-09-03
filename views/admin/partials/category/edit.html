@@ -1,0 +1,26 @@
+{{-- resources/views/admin/category/edit.blade.php --}}
+
+<div ng-controller="CategoryController" ng-init="findEdit()">
+	<div class="row">
+		<div class="col-sm-6 col-md6 col-lg-6">
+			<div class="box">
+				<form autocomplete="off" ng-submit="update(formData)">
+					<div class="box-header with-border">
+						<h3 class="box-title">Update category</h3>
+					</div>
+					<div class="box-body">
+						<div class="form-group">
+							<label for="name" class="control-label">Name</label>
+							<input type="text" ng-model="formData.name" ng-value="formData.name" ng-required="true" ng-min="2" ng-max="255" class="form-control">
+							<p class="text-danger" ng-bind="error.name"></p>
+						</div>
+					</div>
+					<div class="box-footer">
+						<button type="submit" class="btn btn-primary">Save</button>
+						<a ng-href="admin/category/create" class="btn btn-info pull-right"><i class="fa fa-plus"></i></a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,57 @@
+{{-- resources/views/angular/admin/comment/index.blade.php --}}
+
+<div class="row" ng-controller="CommentController" ng-init="init()">
+	<div class="col-sm-12 col-md-12 col-lg-12">
+		<div class="box box-default">
+			<div class="box-header with-border">
+
+			</div>
+			<div class="box-body">
+				<label for="search">Search</label> <input type="text" ng-model="search">
+				<table class="table table-hover table-striped">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Comment</th>
+							<th>Author</th>
+							<th>Post</th>
+							<th>Option</th>
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<th>ID</th>
+							<th>Comment</th>
+							<th>Author</th>
+							<th>Post</th>
+							<th>Option</th>
+						</tr>
+					</tfoot>
+					<tbody>
+						<tr dir-paginate="comment in comments | filter:search | itemsPerPage: itemsPerPage" total-items="totalItems" current-page="currentPage">
+							<td ng-bind="comment.id"></td>
+							<td ng-bind="comment.content"></td>
+							<td ng-bind="comment.user.name"></td>
+							<td ng-bind="comment.post.name"></td>
+							<td>
+								<div class="btn-group">
+									<a class="btn btn-info" ng-href="/admin/comment/@{{comment.id}}/edit"><i class="fa fa-pencil"></i></a>
+									<a class="btn btn-danger" ng-click="remove(comment)"><i class="fa fa-trash"></i></a>
+								</div>
+
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="box-footer">
+				<dir-pagination-controls
+					boundary-links="true"
+					on-page-change="pageChanged(newPageNumber)">
+	    		</dir-pagination-controls>
+			</div>
+		</div>
+	</div>
+</div>
+
+

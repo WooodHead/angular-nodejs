@@ -1,8 +1,8 @@
 'use strict';
-var models = require('../models');
+
 module.exports = function(sequelize, DataTypes) {
     //var User = sequelize.import(__dirname + "/models/user");
-    var Post = sequelize.define('post', {
+    var Post = sequelize.define('Post', {
         name: DataTypes.STRING,
         slug: DataTypes.STRING,
         image: DataTypes.STRING,
@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
         user_id: {
             type: DataTypes.INTEGER,
             references: {
-                model: models.User,
+                model: 'Users',
                 key: 'id',
                 onUpdate: 'CASCADE',
                 onDelete: 'SET NULL'
@@ -22,17 +22,17 @@ module.exports = function(sequelize, DataTypes) {
         classMethods: {
             associate: function(models) {
                 // associations can be defined here
+                Post.belongsTo(models.User, {
+                    onDelete: "CASCADE",
+                    foreignKey: {
+                        allowNull: false
+                    }
+                });
             }
         },
         charset: 'utf8',
         collate: 'utf8_unicode_ci'
     });
-    /*
-        Post.hasOne(User, {
-            foreignKey: 'user_id'
-        });
-        User.hasMany(Post);
-        */
 
     return Post;
 };

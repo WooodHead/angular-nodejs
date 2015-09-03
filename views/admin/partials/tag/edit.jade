@@ -1,0 +1,28 @@
+div(ng-controller='TagController' ng-init='findEdit()')
+	.row
+		.col-sm-6.col-md-6.col-lg-6
+			form(ng-submit='update()' autocomplete='off')
+				.box
+					.box-header.with-border
+						h3.box-title Edit Tag
+					| 					
+					.box-body
+						.form-group
+							label(for='nane') Name
+							| 							
+							input.form-control(type='text' ng-model='formData.name')
+							| 							
+							p.text-danger(ng-bind='errors.name')
+						| 						
+						.form-group
+							label(for='slug') Slug
+							| 							
+							input.form-control(type='text' ng-model='formData.slug')
+							| 							
+							p.text-danger(ng-bind='errors.slug')
+					| 					
+					.box-footer
+						button.btn.btn-primary Save
+						| 						
+						a.btn.btn-info.pull-right(ng-href='/admin/tag/create')
+							i.fa.fa-plus

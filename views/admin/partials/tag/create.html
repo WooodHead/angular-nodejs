@@ -1,0 +1,28 @@
+<div ng-controller="TagController">
+	<div class="row">
+		<div class="col-sm-6 col-md-6 col-lg-6">
+			<form ng-submit="create()" autocomplete="off">
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title">Create Tag</h3>
+					</div>
+					<div class="box-body">
+						<div class="form-group">
+							<label for="name">Name</label>
+							<input type="text" ng-model="form.name" ng-required="true" class="form-control">
+							<p class="text-danger" ng-bind="error.name"></p>
+						</div>
+						<div class="form-group">
+							<label for="slug">Slug</label>
+							<input type="text" ng-model="form.slug" class="form-control">
+							<p class="text-danger" ng-bind="error.slug"></p>
+						</div>
+					</div>
+					<div class="box-footer">
+						<button class="btn btn-primary">Create</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,25 @@
+div(ng-controller='TagController')
+	.row
+		.col-sm-6.col-md-6.col-lg-6
+			form(ng-submit='create()' autocomplete='off')
+				.box
+					.box-header.with-border
+						h3.box-title Create Tag
+					| 					
+					.box-body
+						.form-group
+							label(for='name') Name
+							| 							
+							input.form-control(type='text' ng-model='form.name' ng-required='true')
+							| 							
+							p.text-danger(ng-bind='error.name')
+						| 						
+						.form-group
+							label(for='slug') Slug
+							| 							
+							input.form-control(type='text' ng-model='form.slug')
+							| 							
+							p.text-danger(ng-bind='error.slug')
+					| 					
+					.box-footer
+						button.btn.btn-primary Create

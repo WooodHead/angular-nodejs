@@ -1,0 +1,52 @@
+<div class="row" ng-controller="TagController" ng-init="getList()">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <a ng-href="/admin/tag/create" class="pull-right btn btn-success"><i class="fa fa-plus"></i></a>
+            </div>
+            <div class="box-body">
+                <label>Search:
+                    <input ng-model="query">
+                </label>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Slug</th>
+                            <th>Option</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Slug</th>
+                            <th>Option</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <tr ng-repeat="tag in tags | filter:query | orderBy:orderProp">
+                            <td>
+                                <input type="checkbox">
+                            </td>
+                            <td ng-bind="tag.id"></td>
+                            <td ng-bind="tag.name"></td>
+                            <td ng-bind="tag.slug"></td>
+                            <td>
+                                <div class="btn-group">
+                                    <a class="btn btn-primary" ng-href="/admin/tag/{{tag.id}}/edit"><i class="fa fa-pencil"></i></a>
+                                    <a ng-click="remove(tag)" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="box-footer">
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,115 @@
+<div ng-controller="PostController">
+	<div class="row">
+		<div class="col-md-12 col-lg-12">
+			<form autocomplete="off" ng-submit="createPost()">
+				<div class="row">
+					<div class="col-sm-6 col-md-6 col-lg-6">
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">SEO</h3>
+								<div class="box-tools pull-right">
+		                            <span class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></span>
+		                            <span class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></span>
+		                        </div>
+							</div>
+							<div class="box-body">
+<!-- Name -->
+
+								<div class="form-group">
+									<label for="name">Name</label>
+									<input type="text" ng-model="form.name" ng-required="true" class="form-control">
+									<p class="text-danger" ng-bind="errors.name"></p>
+								</div>
+<!-- Slug -->
+
+								<div class="form-group">
+									<label for="slug">Slug</label>
+									<input type="text" ng-model="form.slug" class="form-control">
+									<p class="text-danger" ng-bind="errors.slug"></p>
+								</div>
+							</div>
+							<div class="box-footer"></div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-md-6 col-lg-6">
+						<div class="box box-info">
+							<div class="box-header with-border">
+								<h3 class="box-title">Infomation</h3>
+								<div class="box-tools pull-right">
+		                            <span class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></span>
+		                            <span class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></span>
+		                        </div>
+							</div>
+							<div class="box-body">
+<!-- Category -->
+
+								<div class="form-group">
+									<label for="category">Category</label>
+									<select ng-model="form.category" class="form-control" multiple ui-select2>
+										<option ng-repeat="category in categories" value="{{category.id}}" ng-bind="category.name"></option>
+									</select>
+									<p class="text-danger" ng-bind="errors.categories"></p>
+								</div>
+<!-- Tag -->
+
+								<div class="form-group">
+									<label for="tag">Tags</label>
+									<select ng-model="form.tag" class="form-control" multiple ui-select2>
+										<option ng-repeat="tag in tags" value="{{tag.id}}" ng-bind="tag.name"></option>
+									</select>
+									<p class="text-danger" ng-bind="errors.tags"></p>
+								</div>
+							</div>
+							<div class="box-footer">
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-8 col-md-8 col-lg-8">
+						<div class="box box-success">
+							<div class="box-header with-border">
+								<h3 class="box-title">Content</h3>
+								<div class="box-tools pull-right">
+		                            <span class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></span>
+		                            <span class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></span>
+		                        </div>
+							</div>
+							<div class="box-body">
+<!-- Content -->
+								<div class="form-group" ng-controller="EditorController">
+									<summernote config="options" ng-model="form.content"></summernote>
+									<p class="text-danger" ng-bind="errors.content"></p>
+								</div>
+							</div>
+							<div class="box-footer">
+								<button class="btn btn-info" type="submit">Create</button>
+							</div>
+
+						</div>
+					</div>
+					<div class="col-sm-4 col-md-4 col-lg-4">
+						<div class="box box-info">
+							<div class="box-header with-border">
+								<h3 class="box-title">Description</h3>
+								<div class="box-tools pull-right">
+		                            <span class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></span>
+		                            <span class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></span>
+		                        </div>
+							</div>
+							<div class="box-body">
+<!-- Description -->
+
+								<div class="form-group">
+									<textarea class="form-control" ng-model="form.description" rows="5"></textarea>
+									<p class="text-danger" ng-bind="errors.description"></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+    	</div>
+	</div>
+</div>
