@@ -1,0 +1,21 @@
+div(ng-controller='CategoryController' ng-init='findEdit()')
+	.row
+		.col-sm-6.col-md6.col-lg-6
+			.box
+				form(autocomplete='off' ng-submit='update(formData)')
+					.box-header.with-border
+						h3.box-title Update category
+					| 					
+					.box-body
+						.form-group
+							label.control-label(for='name') Name
+							| 							
+							input.form-control(type='text' ng-model='formData.name' ng-value='formData.name' ng-required='true' ng-min='2' ng-max='255')
+							| 							
+							p.text-danger(ng-bind='error.name')
+					| 					
+					.box-footer
+						button.btn.btn-primary(type='submit') Save
+						| 						
+						a.btn.btn-info.pull-right(ng-href='/admin/category/create')
+							i.fa.fa-plus

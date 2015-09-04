@@ -1,36 +1,40 @@
-{{-- resources/views/admin/category/index.blade.php --}}
-
 <div class="row" ng-controller="CategoryController">
 	<div class="col-sm-12 col-md-12 col-lg-12">
 		<div class="box box-default">
 			<div class="box-header with-border">
-				<a href="{!! url('admin/category/create') !!}" class="pull-right btn btn-success">{!! FA::icon('plus') !!}</a>
+				<a ng-href="/admin/category/create" class="pull-right btn btn-success"><i class="fa fa-plus"></i></a>
 			</div>
 			<div class="box-body">
 				<label for="search">Search: <input type="text" ng-model="search"></label>
-				<table class="table table-hover table-striped datatable">
+				<table class="table table-hover table-striped">
 					<thead>
 						<tr>
+							<th>#</th>
 							<th>ID</th>
-							<th>{!! trans('labels.name') !!}</th>
-							<th>{!! trans('labels.option') !!}</th>
+							<th>Name</th>
+							<th>Slug</th>
+							<th>Option</th>
 						</tr>
 					</thead>
 					<tfoot>
 						<tr>
+							<th>#</th>
 							<th>ID</th>
-							<th>{!! trans('labels.name') !!}</th>
-							<th>{!! trans('labels.option') !!}</th>
+							<th>Name</th>
+							<th>Slug</th>
+							<th>Option</th>
 						</tr>
 					</tfoot>
 					<tbody>
-						<tr class="loop-item" ng-repeat="category in categories | filter:search">
+						<tr ng-repeat="category in categories | filter:search">
+							<td></td>
 							<td ng-bind="category.id"></td>
 							<td ng-bind="category.name"></td>
+							<td ng-bind="category.slug"></td>
 							<td>
 								<div class="btn-group">
-									<a ng-href="admin/category/@{{category.id}}/edit" class="btn btn-info">{!! FA::icon('pencil') !!}</a>
-									<a ng-click="remove(category)" class="btn btn-danger">{!! FA::icon('trash') !!}</a>
+									<a ng-href="/admin/category/{{category.id}}/edit" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+									<a ng-click="remove(category)" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 								</div>
 							</td>
 						</tr>

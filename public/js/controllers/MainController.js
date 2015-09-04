@@ -16,14 +16,14 @@ angular
 			}
 
 			if (typeof $localStorage.token === 'undefined') {
-				//$location.path('/admin/auth/login');
-				return null;
+				$location.path('/admin/auth/login');
+				//return null;
 			}
 
-			Auth.one('get-by-token').get().then(function(user) {
+			Auth.one('me').get().then(function(user) {
 				$scope.authUser = user;
 			}, function(err) {
-				//$location.path('/admin/auth/login');
+				$location.path('/admin/auth/login');
 				console.log(err);
 			});
 		};

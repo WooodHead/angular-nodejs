@@ -30,6 +30,10 @@ angular.module('Beep', [
 	'UserManagerService',
 	'PermissionService',
 	'ProfileService'
-]).config(function(RestangularProvider) {
+]).config(function($compileProvider, RestangularProvider) {
+	$compileProvider.debugInfoEnabled(true);
 	RestangularProvider.setBaseUrl('/admin/api/v1');
+	//RestangularProvider.setRequestSuffix('.json');
+	//RestangularProvider.setDefaultHeaders({'Content-Type': 'application/json'});
+	//RestangularProvider.setDefaultRequestParams({format: 'json'});
 });

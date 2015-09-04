@@ -30,8 +30,12 @@ angular.module('Beep', [
 	'UserManagerService',
 	'PermissionService',
 	'ProfileService'
-]).config(function(RestangularProvider) {
+]).config(function($compileProvider, RestangularProvider) {
+	$compileProvider.debugInfoEnabled(true);
 	RestangularProvider.setBaseUrl('/admin/api/v1');
+	//RestangularProvider.setRequestSuffix('.json');
+	//RestangularProvider.setDefaultHeaders({'Content-Type': 'application/json'});
+	//RestangularProvider.setDefaultRequestParams({format: 'json'});
 });
 angular
 	.module('appRoute', [])
@@ -77,6 +81,30 @@ angular
 			requireBase: false,
 			rewriteLinks: true
 		});
+
+		$httpProvider.useApplyAsync(true);
+
+		$httpProvider.interceptors.push(function($q, $location, $localStorage) {
+			return {
+				request: function(config) {
+
+					config.headers = config.headers || {};
+
+					if ($localStorage.token) {
+						config.headers.Authorization = 'Bearer ' + $localStorage.token;
+					}
+					return config;
+				},
+				response: function(res) {
+					if (res.status === 401 || res.status === 403) {
+						// Handle unauthenticated user.
+						$location.path('/admin/auth/login');
+					}
+					return res || $q.when(res);
+				}
+			};
+		});
+
 	});
 angular
 	.module('AuthController', [])
@@ -85,26 +113,36 @@ angular
 			var credentials = {
 				email: $scope.login.email,
 				password: $scope.login.password,
-			}
+			};
+
 			Auth.one().post('login', credentials).then(function(response) {
+				$scope.errors = {};
+				console.log(response);
 				$localStorage.token = response.token;
-				$scope.getAuthenticatedUser(response);
+				$scope.getAuthenticatedUser(response.data);
 				$location.path("/admin");
 			}, function(err) {
-
+				console.log(err);
 				$scope.errors = err.data.errors;
 			});
-			/*
-			$auth.login(credentials).then(function(response) {
-				$localStorage.token = response.data.token;
-				$scope.getAuthenticatedUser(response.data);
+		}
 
-				// If login is successful, redirect to home page
+		$scope.register = function() {
+			var credentials = {
+				name: $scope.reg.name,
+				email: $scope.reg.email,
+				password: $scope.reg.password,
+				password_confirmation: $scope.reg.password_confirmation
+			};
+			Auth.one().post('register', credentials).then(function(response) {
+				console.log(response);
+				$localStorage.token = response.token;
+				$scope.getAuthenticatedUser(response.data);
 				$location.path("/admin");
-			}, function(response) {
-				$scope.errors = response.data.errors;
+			}, function(err) {
+				console.log(err);
+				$scope.errors = err.data.errors;
 			});
-*/
 		}
 	});
 angular
@@ -294,14 +332,14 @@ angular
 			}
 
 			if (typeof $localStorage.token === 'undefined') {
-				//$location.path('/admin/auth/login');
-				return null;
+				$location.path('/admin/auth/login');
+				//return null;
 			}
 
-			Auth.one('get-by-token').get().then(function(user) {
+			Auth.one('me').get().then(function(user) {
 				$scope.authUser = user;
 			}, function(err) {
-				//$location.path('/admin/auth/login');
+				$location.path('/admin/auth/login');
 				console.log(err);
 			});
 		};
@@ -507,7 +545,7 @@ angular
 
 
 
-		$scope.createPost = function() {
+		$scope.create = function() {
 			var newPost = {
 				name: $scope.form.name,
 				categories: $scope.form.category,
@@ -515,23 +553,19 @@ angular
 				content: $scope.form.content,
 				description: $scope.form.description
 			};
-			console.log(newPost);
 			Post.post(newPost).then(function(response) {
 				console.log(response);
-				if (response.status) {
-					$scope.form = {};
-					Notification({
-						title: response.title,
-						type: response.type,
-						message: response.message
-					});
-				}
-			}, function(response) {
-				$scope.errors = response.data.errors;
-				console.log(response);
-				Notification.error({
+				$scope.form = {};
+				Notification.primary({
 					title: response.title,
-					message: response.data.message
+					message: response.message
+				});
+			}, function(err) {
+				$scope.errors = err.data.errors;
+				console.log(err);
+				Notification.error({
+					title: err.title,
+					message: err.data.message
 				});
 			});
 		}
@@ -762,7 +796,7 @@ angular.module('RoleController', ['frapontillo.bootstrap-duallistbox'])
 	});
 angular
 	.module('TagController', [])
-	.controller('TagController', function($scope, $routeParams, Tag) {
+	.controller('TagController', function($scope, $routeParams, Tag, Notification) {
 		$scope.getList = function() {
 			Tag.getList().then(function(tags) {
 				$scope.tags = tags;
@@ -777,8 +811,8 @@ angular
 			Tag.post($scope.form).then(function(response) {
 				console.log(response);
 				$scope.form = {};
-			}, function(response) {
-				console.log(response);
+			}, function(err) {
+				console.log(err);
 			});
 		}
 
@@ -791,13 +825,16 @@ angular
 		$scope.update = function() {
 			var data = {
 				name: $scope.formData.name,
-				slug: $scope.formData.slug
+				slug: $scope.formData.slug,
+				format: 'json'
 			};
 
 			Tag.one($routeParams.id).put(data).then(function(response) {
-
-			}, function(response) {
-
+				Notification.primary({
+					message: response.message
+				});
+			}, function(err) {
+				$scope.errors = err.data.errors;
 			});
 		}
 
@@ -805,14 +842,18 @@ angular
 		$scope.remove = function(tag) {
 
 			tag.remove().then(function(response) {
-
 				var index = $scope.tags.indexOf(tag);
-
 				$scope.tags.splice(index, 1);
 
-			}, function(response) {
+				Notification({
+					title: response.title,
+					message: response.message
+				});
 
-
+			}, function(err) {
+				Notification.error({
+					message: 'An error occurred'
+				});
 			});
 		}
 	});

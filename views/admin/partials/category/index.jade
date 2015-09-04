@@ -1,0 +1,56 @@
+.row(ng-controller='CategoryController')
+	.col-sm-12.col-md-12.col-lg-12
+		.box.box-default
+			.box-header.with-border
+				a.pull-right.btn.btn-success(ng-href='/admin/category/create')
+					i.fa.fa-plus
+			| 			
+			.box-body
+				label(for='search')
+					| Search: 
+					input(type='text' ng-model='search')
+				| 				
+				table.table.table-hover.table-striped
+					thead
+						tr
+							th #
+							| 							
+							th ID
+							| 							
+							th Name
+							| 							
+							th Slug
+							| 							
+							th Option
+					| 					
+					tfoot
+						tr
+							th #
+							| 							
+							th ID
+							| 							
+							th Name
+							| 							
+							th Slug
+							| 							
+							th Option
+					| 					
+					tbody
+						tr(ng-repeat='category in categories | filter:search')
+							td
+							| 							
+							td(ng-bind='category.id')
+							| 							
+							td(ng-bind='category.name')
+							| 							
+							td(ng-bind='category.slug')
+							| 							
+							td
+								.btn-group
+									a.btn.btn-info(ng-href='/admin/category/{{category.id}}/edit')
+										i.fa.fa-pencil
+									| 									
+									a.btn.btn-danger(ng-click='remove(category)')
+										i.fa.fa-trash
+			| 			
+			.box-footer

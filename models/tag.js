@@ -4,6 +4,8 @@ module.exports = function(sequelize, DataTypes) {
         name: DataTypes.STRING,
         slug: DataTypes.STRING
     }, {
+        createdAt: 'created_at',
+        updatedAt: 'updated_at',
         timestamps: true,
         classMethods: {
             associate: function(models) {

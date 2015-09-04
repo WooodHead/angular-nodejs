@@ -1,0 +1,25 @@
+div(ng-controller='ProfileController')
+	.row
+		.col-sm-6.col-md-6.col-lg-6
+			form(ng-submit='update()' autocomplete='off' ng-init='init()')
+				.box.box-info
+					.box-header.with-border
+						h3.box-title
+					| 					
+					.box-body
+						.form-group
+							label(for='name') Name
+							| 							
+							input.form-control(type='text' ng-model='formUser.name' ng-value='formUser.name')
+							| 							
+							p.text-danger(ng-bind='errors.name')
+						| 						
+						.form-group
+							label(for='password') Password
+							| 							
+							input.form-control(type='password' ng-model='formUser.password')
+							| 							
+							p.text-danger(ng-bind='errors.password')
+					| 					
+					.box-footer
+						button.btn.btn-primary Update

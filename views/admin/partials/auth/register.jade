@@ -1,0 +1,30 @@
+div(ng-controller='AuthController')
+	.col-md-offset-4.col-sm-3.col-md-3.col-lg-3
+		form(ng-submit='register()')
+			.form-group
+				label(for='name') Name
+				| 				
+				input.form-control(type='text' ng-model='reg.name')
+				| 				
+				p.text-danger(ng-bind='errors.name')
+			| 			
+			.form-group
+				label(for='email') Email
+				| 				
+				input.form-control(type='text' ng-model='reg.email')
+				| 				
+				p.text-danger(ng-bind='errors.email')
+			| 			
+			.form-group
+				label(for='password') Password
+				| 				
+				input.form-control(type='password' ng-model='reg.password')
+				| 				
+				p.text-danger(ng-bind='errors.password')
+			| 			
+			.form-group
+				label(for='password_confirmation') Password confirmation
+				| 				
+				input.form-control(type='password' ng-model='reg.password_confirmation')
+			| 			
+			button.btn.btn-primary Register

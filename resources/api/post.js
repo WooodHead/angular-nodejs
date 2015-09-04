@@ -1,10 +1,11 @@
 var models = require('../../models');
+var slugify = require('slug');
 
 exports.index = function(req, res) {
-	models.Tag.findAll({
+	models.Post.findAll({
 		limit: 5
-	}).then(function(tags) {
-		res.json(tags);
+	}).then(function(data) {
+		res.json(data);
 	});
 };
 
@@ -13,18 +14,22 @@ exports.new = function(req, res) {
 };
 
 exports.create = function(req, res) {
-	var tag = {
+	var data = {
 		name: req.body.name,
-		slug: req.body.slug
+		slug: slugify(req.body.name, {
+			lower: true
+		}),
+		content: req.body.content,
+		description: req.body.description
 	};
-	models.Tag.create(tag).then(function(success) {
+	models.Post.create(data).then(function(success) {
 		res.json(success);
 	});
 };
 
 exports.show = function(req, res) {
-	models.Tag.findById(req.params.tag).then(function(tag) {
-		res.json(tag);
+	models.Post.findById(req.params.post).then(function(item) {
+		res.json(item);
 	});
 };
 
@@ -33,10 +38,10 @@ exports.edit = function(req, res) {
 };
 
 exports.update = function(req, res) {
-	models.Tag.findById(req.params.tag).then(function(tag) {
-		tag.name = req.param('name');
-		tag.slug = req.param('slug');
-		tag.save().then(function(err, tag) {
+	models.Post.findById(req.params.post).then(function(post) {
+		post.name = req.param('name');
+		post.slug = req.param('slug');
+		post.save().then(function(err, post) {
 			if (err) {
 				res.status(403).json({
 					errors: err
@@ -50,14 +55,14 @@ exports.update = function(req, res) {
 };
 
 exports.destroy = function(req, res) {
-	models.Tag.findById(req.params.tag).then(function(tag) {
-		tag.destroy().then(function(err, tag) {
+	models.Post.findById(req.params.post).then(function(item) {
+		item.destroy().then(function(err, post) {
 			if (err) {
 				res.status(403).json({
 					errors: err
 				});
 			}
-			// now i'm gone :)
+
 			res.status(200).json({
 				message: 'Destroy success'
 			});

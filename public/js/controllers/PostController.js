@@ -73,7 +73,7 @@ angular
 
 
 
-		$scope.createPost = function() {
+		$scope.create = function() {
 			var newPost = {
 				name: $scope.form.name,
 				categories: $scope.form.category,
@@ -81,23 +81,19 @@ angular
 				content: $scope.form.content,
 				description: $scope.form.description
 			};
-			console.log(newPost);
 			Post.post(newPost).then(function(response) {
 				console.log(response);
-				if (response.status) {
-					$scope.form = {};
-					Notification({
-						title: response.title,
-						type: response.type,
-						message: response.message
-					});
-				}
-			}, function(response) {
-				$scope.errors = response.data.errors;
-				console.log(response);
-				Notification.error({
+				$scope.form = {};
+				Notification.primary({
 					title: response.title,
-					message: response.data.message
+					message: response.message
+				});
+			}, function(err) {
+				$scope.errors = err.data.errors;
+				console.log(err);
+				Notification.error({
+					title: err.title,
+					message: err.data.message
 				});
 			});
 		}

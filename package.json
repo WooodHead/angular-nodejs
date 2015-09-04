@@ -32,12 +32,17 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-csscomb": "^3.1.0",
     "jade": "^1.11.0",
+    "jsonwebtoken": "^5.0.5",
     "method-override": "^2.3.5",
     "morgan": "^1.6.1",
+    "multer": "^1.0.3",
     "mysql": "^2.9.0",
     "passport": "^0.3.0",
     "passport-local": "^1.0.0",
+    "password-hash": "^1.2.2",
     "sequelize": "^3.6.0",
-    "sequelize-cli": "^1.9.0"
+    "sequelize-cli": "^1.9.0",
+    "slug": "^0.9.1",
+    "validator": "^4.0.5"
   }
 }

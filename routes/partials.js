@@ -1,5 +1,7 @@
-exports.partials = function(req, res) {
-	console.log(req.params);
+var express = require('express');
+var router = express.Router();
+
+router.get('/:controller/:action?', function(req, res) {
 	if (typeof req.params.action === 'undefined') {
 		req.params.action = 'index';
 	}
@@ -12,14 +14,7 @@ exports.partials = function(req, res) {
 		}
 	}
 
-	//console.log('partials/' + paramVals.join('/'));
-
-	//res.render('partials/' + req.params.name);
 	res.render('partials/' + paramVals.join('/'));
-};
+});
 
-exports.index = function(req, res, next) {
-	console.log('dkm');
-	res.render('layout');
-	next();
-};
+module.exports = router;

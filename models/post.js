@@ -1,7 +1,6 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-    //var User = sequelize.import(__dirname + "/models/user");
     var Post = sequelize.define('Post', {
         name: DataTypes.STRING,
         slug: DataTypes.STRING,
@@ -19,6 +18,8 @@ module.exports = function(sequelize, DataTypes) {
         },
         status: DataTypes.BOOLEAN
     }, {
+        createdAt: 'created_at',
+        updatedAt: 'updated_at',
         classMethods: {
             associate: function(models) {
                 // associations can be defined here

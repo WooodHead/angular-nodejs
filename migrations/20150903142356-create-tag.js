@@ -18,15 +18,17 @@ module.exports = {
             },
             createdAt: {
                 allowNull: false,
+                field: 'created_at',
                 type: Sequelize.DATE
             },
             updatedAt: {
                 allowNull: false,
+                field: 'updated_at',
                 type: Sequelize.DATE
             }
         });
 
-        queryInterface.createTable('taggables', {
+        queryInterface.createTable('tag_gables', {
             tag_id: {
                 allowNull: false,
                 primaryKey: true,
@@ -50,17 +52,19 @@ module.exports = {
                 }
             },
             createdAt: {
+                field: 'created_at',
                 allowNull: false,
                 type: Sequelize.DATE
             },
             updatedAt: {
+                field: 'updated_at',
                 allowNull: false,
                 type: Sequelize.DATE
             }
         });
     },
     down: function(queryInterface, Sequelize) {
-        queryInterface.dropTable('taggables');
+        queryInterface.dropTable('tag_gables');
         queryInterface.dropTable('tags');
     }
 };

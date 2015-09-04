@@ -2,9 +2,9 @@ doctype html
 html(lang='en' ng-app='Beep')
 	head
 		meta(charset='utf-8')
-		|         
+		|     
 		meta(http-equiv='X-UA-Compatible' content='IE=edge')
-		|         
+		|     
 		title AdminLTE 2 | Dashboard
 		// Tell the browser to be responsive to screen width
 		meta(content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport')
@@ -22,22 +22,21 @@ html(lang='en' ng-app='Beep')
 			AdminLTE Skins. Choose a skin from the css/skins
 			folder instead of downloading all of them to reduce the load.
 		link(rel='stylesheet' href='/bower_components/AdminLTE/dist/css/skins/_all-skins.min.css')
-		|         
+		|     
 		link(rel='stylesheet' href='/bower_components/angular-ui-notification/dist/angular-ui-notification.min.css')
 		// Animate
 		link(rel='stylesheet' href='/bower_components/animate.css/animate.min.css')
 		// Select2
 		link(rel='stylesheet' href='/bower_components/select2/select2.css')
-		|         
+		|     
 		link(rel='stylesheet' href='/bower_components/select2/select2-bootstrap.css')
 		// Bootstrap Duallistbox
 		link(rel='stylesheet' href='/bower_components/bootstrap-duallistbox/dist/bootstrap-duallistbox.min.css')
 		// Summernote
 		link(rel='stylesheet' href='/bower_components/summernote/dist/summernote.css')
-		|         
+		|     
 		script(src='http://code.jquery.com/jquery.min.js')
-		|         
-		|         
+		|     
 		script(src='/bower_components/angular/angular.min.js')
 		// HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
 		// WARNING: Respond.js doesn't work if you view the page via file://
@@ -45,7 +44,6 @@ html(lang='en' ng-app='Beep')
 			script(src='https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js')
 			|             
 			script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')
-	|     
 	body.hold-transition.skin-blue.sidebar-mini(ng-controller='MainController' ng-init='getAuthenticatedUser()')
 		.wrapper
 			include header
@@ -57,27 +55,185 @@ html(lang='en' ng-app='Beep')
 					h1
 						| General Form Elements
 						small Preview
-					|                     
+					|                 
 					ol.breadcrumb
 						li
 							a(href='#')
 								i.fa.fa-dashboard
 								|  Home
-						|                         
+						|                     
 						li
 							a(href='#') Forms
-						|                         
+						|                     
 						li.active General Elements
 				// Main content
 				section.content
-					div(ng-view)
+					div(ng-view='')
+			// /.content-wrapper
+			footer.main-footer
+				.pull-right.hidden-xs
+					b Version
+					|  2.3.0
+				|             
+				strong
+					| Copyright © 2014-2015 
+					a(ng-href='http://almsaeedstudio.com') Almsaeed Studio
+					| .
+				|  All rights reserved.
+			// Control Sidebar
+			aside.control-sidebar.control-sidebar-dark
+				// Create the tabs
+				ul.nav.nav-tabs.nav-justified.control-sidebar-tabs
+					li
+						a(href='#control-sidebar-home-tab' data-toggle='tab')
+							i.fa.fa-home
+					|                 
+					li
+						a(href='#control-sidebar-settings-tab' data-toggle='tab')
+							i.fa.fa-gears
+				// Tab panes
+				.tab-content
+					// Home tab content
+					#control-sidebar-home-tab.tab-pane
+						h3.control-sidebar-heading Recent Activity
+						|                     
+						ul.control-sidebar-menu
+							li
+								a(href='javascript::;')
+									i.menu-icon.fa.fa-birthday-cake.bg-red
+									|                                 
+									.menu-info
+										h4.control-sidebar-subheading Langdon's Birthday
+										|                                     
+										p Will be 23 on April 24th
+							|                         
+							li
+								a(href='javascript::;')
+									i.menu-icon.fa.fa-user.bg-yellow
+									|                                 
+									.menu-info
+										h4.control-sidebar-subheading Frodo Updated His Profile
+										|                                     
+										p New phone +1(800)555-1234
+							|                         
+							li
+								a(href='javascript::;')
+									i.menu-icon.fa.fa-envelope-o.bg-light-blue
+									|                                 
+									.menu-info
+										h4.control-sidebar-subheading Nora Joined Mailing List
+										|                                     
+										p nora@example.com
+							|                         
+							li
+								a(href='javascript::;')
+									i.menu-icon.fa.fa-file-code-o.bg-green
+									|                                 
+									.menu-info
+										h4.control-sidebar-subheading Cron Job 254 Executed
+										|                                     
+										p Execution time 5 seconds
+						// /.control-sidebar-menu
+						h3.control-sidebar-heading Tasks Progress
+						|                     
+						ul.control-sidebar-menu
+							li
+								a(href='javascript::;')
+									h4.control-sidebar-subheading
+										| Custom Template Design
+										span.label.label-danger.pull-right 70%
+									|                                 
+									.progress.progress-xxs
+										.progress-bar.progress-bar-danger(style='width: 70%')
+							|                         
+							li
+								a(href='javascript::;')
+									h4.control-sidebar-subheading
+										| Update Resume
+										span.label.label-success.pull-right 95%
+									|                                 
+									.progress.progress-xxs
+										.progress-bar.progress-bar-success(style='width: 95%')
+							|                         
+							li
+								a(href='javascript::;')
+									h4.control-sidebar-subheading
+										| Laravel Integration
+										span.label.label-warning.pull-right 50%
+									|                                 
+									.progress.progress-xxs
+										.progress-bar.progress-bar-warning(style='width: 50%')
+							|                         
+							li
+								a(href='javascript::;')
+									h4.control-sidebar-subheading
+										| Back End Framework
+										span.label.label-primary.pull-right 68%
+									|                                 
+									.progress.progress-xxs
+										.progress-bar.progress-bar-primary(style='width: 68%')
+						// /.control-sidebar-menu
+					// /.tab-pane
+					// Settings tab content
+					#control-sidebar-settings-tab.tab-pane
+						form(method='post')
+							h3.control-sidebar-heading General Settings
+							|                         
+							.form-group
+								label.control-sidebar-subheading
+									| Report panel usage
+									input.pull-right(type='checkbox' checked='')
+								|                             
+								p
+									| Some information about this general settings option
+							// /.form-group
+							.form-group
+								label.control-sidebar-subheading
+									| Allow mail redirect
+									input.pull-right(type='checkbox' checked='')
+								|                             
+								p
+									| Other sets of options are available
+							// /.form-group
+							.form-group
+								label.control-sidebar-subheading
+									| Expose author name in posts
+									input.pull-right(type='checkbox' checked='')
+								|                             
+								p
+									| Allow the user to show his name in blog posts
+							// /.form-group
+							h3.control-sidebar-heading Chat Settings
+							|                         
+							.form-group
+								label.control-sidebar-subheading
+									| Show me as online
+									input.pull-right(type='checkbox' checked='')
+							// /.form-group
+							.form-group
+								label.control-sidebar-subheading
+									| Turn off notifications
+									input.pull-right(type='checkbox')
+							// /.form-group
+							.form-group
+								label.control-sidebar-subheading
+									| Delete chat history
+									a.text-red.pull-right(href='javascript::;')
+										i.fa.fa-trash-o
+							// /.form-group
+					// /.tab-pane
+			// /.control-sidebar
+			//
+				Add the sidebar's background. This div must be placed
+				immediately after the control sidebar
+			.control-sidebar-bg
 		// ngRoute
 		script(src='/bower_components/angular-route/angular-route.min.js')
 		// Angular Animate
 		script(src='/bower_components/angular-animate/angular-animate.min.js')
 		// Restangular
 		script(src='/bower_components/lodash/lodash.min.js')
-		|         
+		|     
 		script(src='/bower_components/restangular/dist/restangular.min.js')
 		// Satellizer
 		script(src='/bower_components/satellizer/satellizer.min.js')
@@ -85,8 +241,7 @@ html(lang='en' ng-app='Beep')
 		script(src='/bower_components/ngstorage/ngStorage.min.js')
 		// Upload
 		script(src='/bower_components/ng-file-upload-shim/ng-file-upload-shim.min.js')
-		|  
-		|         
+		|     
 		script(src='/bower_components/ng-file-upload/ng-file-upload.min.js')
 		// Notification
 		script(src='/bower_components/angular-ui-notification/dist/angular-ui-notification.min.js')
@@ -94,22 +249,19 @@ html(lang='en' ng-app='Beep')
 		script(src='/bower_components/angularUtils-pagination/dirPagination.js')
 		// Select2
 		script(src='/bower_components/select2/select2.min.js')
-		|  
-		|         
+		|     
 		script(src='/bower_components/angular-ui-select2/src/select2.js')
 		// Summernote
 		script(src='/bower_components/summernote/dist/summernote.min.js')
-		|  
-		|         
+		|     
 		script(src='/bower_components/angular-summernote/dist/angular-summernote.min.js')
 		// Bootstrap duallistbox
 		script(src='/bower_components/angular-bootstrap-duallistbox/dist/angular-bootstrap-duallistbox.min.js')
-		|  
-		|         
+		|     
 		script(src='/bower_components/bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.min.js')
 		// Bootstrap
 		script(src='/bower_components/AdminLTE/bootstrap/js/bootstrap.min.js')
 		// AdminLTE App
 		script(src='/bower_components/AdminLTE/dist/js/app.min.js')
-		|         
+		|     
 		script(src='/dist/js/app.js')

@@ -28,17 +28,19 @@ module.exports = {
             remember_token: {
                 type: Sequelize.STRING(60)
             },
+            token: {
+                type: Sequelize.STRING
+            },
             createdAt: {
+                field: 'created_at',
                 allowNull: false,
                 type: Sequelize.DATE
             },
             updatedAt: {
+                field: 'updated_at',
                 allowNull: false,
                 type: Sequelize.DATE
             }
-        }, {
-            charset: 'utf8',
-            collate: 'utf8_unicode_ci'
         });
     },
     down: function(queryInterface, Sequelize) {

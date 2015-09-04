@@ -1,0 +1,47 @@
+div(ng-controller='ProfileController' ng-init='setup()')
+	.row
+		.col-sm-4.col-md-4.col-lg-4
+			.box.box-info
+				.box-header.with-border
+					h3.box-title User infomation
+					|               		
+					.box-tools
+						a.btn.btn-box-tool(ng-href='/admin/profile/edit')
+							i.fa.fa-pencil
+						|                 		
+						button.btn.btn-box-tool(data-widget='collapse')
+							i.fa.fa-minus
+				|             	
+				.box-body.no-padding(style='display: block;')
+					ul.nav.nav-pills.nav-stacked
+						li
+							a(href='#')
+								i.fa.fa-user
+								|  {{authUser.name}}
+						|                 		
+						li
+							a(href='#')
+								i.fa.fa-envelope-o
+								|  {{authUser.email}}
+						|                 		
+						li
+							a(href='#')
+								i.fa.fa-key
+								|  
+								span(ng-repeat='role in infoUser.roles' ng-bind='role.name')
+				// /.box-body
+		|         
+		.col-sm-3.col-md-3.col-lg-3
+			form
+				.box
+					.box-body
+						img(ng-src='{{authUser.image}}' width='150px')
+						|                         
+						button.btn.btn-default(ngf-select='changeAvatar()' ng-model='avatar' ngf-min-height='80' ngf-max-size='2MB' accept='image/*')
+							i.fa.fa-camera
+						|                         
+						p.text-danger(ng-bind='errors.avatar')
+						|                         
+						.progress(ng-show='f.isUpload')
+							.progress-bar(ng-class="{'active':f.isProcess, 'progress-bar-striped':f.isProcess, 'progress-bar-success':f.isDone}" role='progressbar' aria-valuenow='{{f.progress}}' aria-valuemin='0' aria-valuemax='100' style='width: {{f.progress}}%')
+								span {{f.progress}}% Complete

@@ -1,3 +1,4 @@
+require('dotenv').load();
 var http = require("http"),
 	path = require('path'),
 	logger = require('morgan'),
@@ -5,55 +6,85 @@ var http = require("http"),
 	methodOverride = require('method-override'),
 	Resource = require('express-resource'),
 	cookieParser = require('cookie-parser'),
-	bodyParser = require('body-parser');
-
+	bodyParser = require('body-parser'),
+	multer = require('multer'),
+	jwt = require('jsonwebtoken');
 
 var app = express(),
 	admin = express(),
 	api = express();
 
-var partials = require('./routes/partials');
+var port = process.env.PORT || 8080;
 
+var angular = require('./routes/angular');
+
+/**
+ *
+ * App config
+ *
+ */
+
+app.set('superSecret', process.env.APP_KEY);
 app.use('/admin', admin);
-admin.use('/api/v1', api);
-
 app.use(cookieParser());
-
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(methodOverride());
-//app.use('/assets', express.static(path.join(__dirname, 'public')));
-
-admin.set('views', path.join(__dirname, 'views', 'admin'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-api.use(bodyParser.urlencoded({
-	'extended': 'true'
-}));
+/**
+ *
+ * Admin config
+ *
+ */
+
+
+admin.use('/api/v1', api);
+admin.set('views', path.join(__dirname, 'views', 'admin'));
+//admin.get('/partials', require('./routes/partials'));
+admin.get('/partials/:controller/:action?', angular.partials);
+admin.get('*', angular.index);
+
+/**
+ *
+ * Api config
+ *
+ */
+
 
 api.use(bodyParser.json({
-	type: 'application/vnd.api+json'
+	type: 'application/*'
 }));
 
+api.use(bodyParser.raw({
+	type: 'application/*'
+}));
 
-//admin.get('/', partials.index);
+api.use(bodyParser.urlencoded({
+	extended: true
+}));
 
+api.use('/auth', require('./routes/auth'));
 
-//Admin route
-admin.get('/partials/:controller/:action?', partials.partials);
-
-
-// Api route
 api.resource('tag', require('./resources/api/tag'));
 
-admin.get('*', partials.index);
-//app.get('*', partials.index);
+api.resource('category', require('./resources/api/category'));
 
-var server = app.listen(3000, function() {
-	var host = server.address().address;
-	var port = server.address().port;
+api.resource('post', require('./resources/api/post'));
 
-	console.log('Example app listening at http://%s:%s', host, port);
+/*
+api.use(function(req, res, next) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+	next();
+});
+
+*/
+
+
+var server = app.listen(port, function(req, res) {
+
+	console.log('Example app listening at http://localhost:%s', port);
 });

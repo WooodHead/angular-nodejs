@@ -1,6 +1,6 @@
 angular
 	.module('TagController', [])
-	.controller('TagController', function($scope, $routeParams, Tag) {
+	.controller('TagController', function($scope, $routeParams, Tag, Notification) {
 		$scope.getList = function() {
 			Tag.getList().then(function(tags) {
 				$scope.tags = tags;
@@ -15,8 +15,8 @@ angular
 			Tag.post($scope.form).then(function(response) {
 				console.log(response);
 				$scope.form = {};
-			}, function(response) {
-				console.log(response);
+			}, function(err) {
+				console.log(err);
 			});
 		}
 
@@ -29,13 +29,16 @@ angular
 		$scope.update = function() {
 			var data = {
 				name: $scope.formData.name,
-				slug: $scope.formData.slug
+				slug: $scope.formData.slug,
+				format: 'json'
 			};
 
 			Tag.one($routeParams.id).put(data).then(function(response) {
-
-			}, function(response) {
-
+				Notification.primary({
+					message: response.message
+				});
+			}, function(err) {
+				$scope.errors = err.data.errors;
 			});
 		}
 
@@ -43,14 +46,18 @@ angular
 		$scope.remove = function(tag) {
 
 			tag.remove().then(function(response) {
-
 				var index = $scope.tags.indexOf(tag);
-
 				$scope.tags.splice(index, 1);
 
-			}, function(response) {
+				Notification({
+					title: response.title,
+					message: response.message
+				});
 
-
+			}, function(err) {
+				Notification.error({
+					message: 'An error occurred'
+				});
 			});
 		}
 	});
