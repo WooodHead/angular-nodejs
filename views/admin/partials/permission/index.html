@@ -1,11 +1,8 @@
-{{-- resources/views/admin/permission/index.blade.php --}}
-
-
 <div ng-controller="PermissionController" ng-init="getList()">
 	<div class="box box-default">
 		<div class="box-header with-border">
 			<h3 class="box-title">List permission</h3>
-			<a ng-href="admin/permission/create" class="pull-right btn btn-success"><i class="fa fa-plus"></i></a>
+			<a ng-href="/admin/permission/create" class="pull-right btn btn-success"><i class="fa fa-plus"></i></a>
 		</div>
 		<div class="box-body">
 			<div class="row">
@@ -42,7 +39,7 @@
 						<td ng-bind="permission.description"></td>
 						<td>
 							<div class="btn-group">
-								<a class="btn btn-info" ng-href="/admin/permission/@{{permission.id}}/edit"><i class="fa fa-pencil"></i></a>
+								<a class="btn btn-info" ng-href="/admin/permission/{{permission.id}}/edit"><i class="fa fa-pencil"></i></a>
 								<a ng-click="remove(permission)" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 							</div>
 						</td>

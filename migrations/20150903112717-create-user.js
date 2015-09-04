@@ -29,7 +29,7 @@ module.exports = {
                 type: Sequelize.STRING(60)
             },
             token: {
-                type: Sequelize.STRING
+                type: Sequelize.TEXT
             },
             createdAt: {
                 field: 'created_at',

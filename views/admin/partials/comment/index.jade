@@ -1,0 +1,55 @@
+.row(ng-controller='CommentController' ng-init='init()')
+	.col-sm-12.col-md-12.col-lg-12
+		.box.box-default
+			.box-header.with-border
+			| 			
+			.box-body
+				label(for='search') Search
+				|  
+				input(type='text' ng-model='search')
+				| 				
+				table.table.table-hover.table-striped
+					thead
+						tr
+							th ID
+							| 							
+							th Comment
+							| 							
+							th Author
+							| 							
+							th Post
+							| 							
+							th Option
+					| 					
+					tfoot
+						tr
+							th ID
+							| 							
+							th Comment
+							| 							
+							th Author
+							| 							
+							th Post
+							| 							
+							th Option
+					| 					
+					tbody
+						tr(dir-paginate='comment in comments | filter:search | itemsPerPage: itemsPerPage' total-items='totalItems' current-page='currentPage')
+							td(ng-bind='comment.id')
+							| 							
+							td(ng-bind='comment.content')
+							| 							
+							td(ng-bind='comment.user.name')
+							| 							
+							td(ng-bind='comment.post.name')
+							| 							
+							td
+								.btn-group
+									a.btn.btn-info(ng-href='/admin/comment/{{comment.id}}/edit')
+										i.fa.fa-pencil
+									| 									
+									a.btn.btn-danger(ng-click='remove(comment)')
+										i.fa.fa-trash
+			| 			
+			.box-footer
+				dir-pagination-controls(boundary-links='true' on-page-change='pageChanged(newPageNumber)')

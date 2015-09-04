@@ -1,0 +1,58 @@
+div(ng-controller='UserManagerController' ng-init='getList()')
+	.box.box-success
+		.box-header.with-border
+			h3.box-title List User
+			| 			
+			.box-tools
+			| 			
+			a.pull-right.btn.btn-success(ng-href='/admin/user-manager/create')
+				i.fa.fa-plus
+		| 		
+		.box-body
+			table.table.table-hover.datatable
+				thead
+					tr
+						th Avatar
+						| 						
+						th Name
+						| 						
+						th Mail
+						| 						
+						th Role
+						| 						
+						th Options
+				| 				
+				tfoot
+					tr
+						th Avatar
+						| 						
+						th Name
+						| 						
+						th Mail
+						| 						
+						th Role
+						| 						
+						th Options
+				| 				
+				tbody
+					tr(ng-repeat='manager in managers')
+						td
+							img.img-circle(ng-src='{{manager.image}}' alt='Avatar' width='50px')
+						| 						
+						td(ng-bind='manager.name')
+						| 						
+						td
+							a(href='mailto:{{manager.email}}?subject=feedback') {{manager.email}}
+						| 						
+						td
+							span.label.label-primary(ng-repeat='role in manager.roles' ng-bind='role.name')
+						| 						
+						td
+							.btn-group
+								a.btn.btn-info(ng-href='/admin/user-manager/{{manager.id}}/edit')
+									i.fa.fa-pencil
+								| 								
+								a.btn.btn-danger(ng-click='remove(manager)')
+									i.fa.fa-trash
+		| 		
+		.box-footer

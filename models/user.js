@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING(60)
         },
         token: {
-            type: DataTypes.STRING
+            type: DataTypes.TEXT
         }
     }, {
         classMethods: {

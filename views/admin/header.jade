@@ -20,14 +20,14 @@ header.main-header
 				// User Account: style can be found in dropdown.less
 				li.dropdown.user.user-menu(ng-if='authUser != null')
 					a.dropdown-toggle(href='#' data-toggle='dropdown')
-						img.user-image(src='image/no-image.png' alt='User Image')
+						img.user-image(ng-src='{{authUser.image}}' alt='User Image')
 						|                         
 						span.hidden-xs Alexander Pierce
 					|                     
 					ul.dropdown-menu
 						// User image
 						li.user-header
-							img.img-circle(src='image/no-image.png' alt='User Image')
+							img.img-circle(src='{{authUser.image}}' alt='User Image')
 							|                             
 							p
 								| Alexander Pierce - Web Developer

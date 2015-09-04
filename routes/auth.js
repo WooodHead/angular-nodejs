@@ -48,13 +48,11 @@ router.post('/login', function(req, res) {
 		} else if (user) {
 			// check if password matches
 			if (passwordHash.verify(req.body.password, user.password)) {
-				/*
-				user.token = jwt.sign(user, process.env.APP_KEY, {
-					expiresInMinutes: 1440 // expires in 24 hours
-				});
-*/
+
 				user.token = jwt.sign(user, process.env.APP_KEY);
-				user.save(function(err, user1) {
+
+				//user.token = jwt.sign(user, process.env.APP_KEY);
+				user.save().then(function(user1) {
 					res.json({
 						data: user1,
 						token: user1.token
@@ -108,8 +106,11 @@ router.post('/register', function(req, res) {
 	};
 	models.User.create(data).then(function(user) {
 
-		user.token = jwt.sign(user, process.env.APP_KEY);
-		user.save(function(err, user1) {
+		//user.token = jwt.sign(user, process.env.APP_KEY);
+		user.token = jwt.sign(user, process.env.APP_KEY, {
+			expiresInMinutes: 1440 // expires in 24 hours
+		});
+		user.save().then(function(user1) {
 			res.json({
 				type: true,
 				data: user1,

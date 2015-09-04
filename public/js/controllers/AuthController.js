@@ -1,6 +1,7 @@
 angular
 	.module('AuthController', [])
 	.controller('AuthController', function($scope, $location, $localStorage, Auth) {
+
 		$scope.login = function() {
 			var credentials = {
 				email: $scope.login.email,
