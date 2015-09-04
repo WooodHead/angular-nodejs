@@ -1,5 +1,6 @@
 var models = require('../../models');
 var slugify = require('slug');
+
 exports.index = function(req, res) {
 	models.Category.findAll({
 		limit: 5
@@ -42,12 +43,7 @@ exports.update = function(req, res) {
 		category.slug = slugify(req.param('name'), {
 			lower: true
 		});
-		category.save().then(function(err, category) {
-			if (err) {
-				res.status(403).json({
-					errors: err
-				});
-			}
+		category.save().then(function(category) {
 			res.status(200).json({
 				message: 'Update success'
 			});
@@ -57,12 +53,7 @@ exports.update = function(req, res) {
 
 exports.destroy = function(req, res) {
 	models.Category.findById(req.params.category).then(function(item) {
-		item.destroy().then(function(err, category) {
-			if (err) {
-				res.status(403).json({
-					errors: err
-				});
-			}
+		item.destroy().then(function(category) {
 			// now i'm gone :)
 			res.status(200).json({
 				message: 'Destroy success'

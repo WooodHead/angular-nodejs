@@ -34,6 +34,8 @@ angular.module('Beep', [
 	$compileProvider.debugInfoEnabled(true);
 	RestangularProvider.setBaseUrl('/admin/api/v1');
 	//RestangularProvider.setRequestSuffix('.json');
-	//RestangularProvider.setDefaultHeaders({'Content-Type': 'application/json'});
+	RestangularProvider.setDefaultHeaders({
+		'Content-Type': 'application/json'
+	});
 	//RestangularProvider.setDefaultRequestParams({format: 'json'});
 });

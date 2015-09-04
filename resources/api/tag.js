@@ -1,4 +1,5 @@
 var models = require('../../models');
+var slugify = require('slug');
 
 exports.index = function(req, res) {
 	models.Tag.findAll({
@@ -15,7 +16,9 @@ exports.new = function(req, res) {
 exports.create = function(req, res) {
 	var tag = {
 		name: req.body.name,
-		slug: req.body.slug
+		slug: slugify(req.body.name, {
+			lower: true
+		})
 	};
 	models.Tag.create(tag).then(function(success) {
 		res.json(success);
@@ -35,13 +38,10 @@ exports.edit = function(req, res) {
 exports.update = function(req, res) {
 	models.Tag.findById(req.params.tag).then(function(tag) {
 		tag.name = req.param('name');
-		tag.slug = req.param('slug');
-		tag.save().then(function(err, tag) {
-			if (err) {
-				res.status(403).json({
-					errors: err
-				});
-			}
+		tag.slug = slugify(req.param('name'), {
+			lower: true
+		});
+		tag.save().then(function(tag) {
 			res.status(200).json({
 				message: 'Update success'
 			});
@@ -51,12 +51,7 @@ exports.update = function(req, res) {
 
 exports.destroy = function(req, res) {
 	models.Tag.findById(req.params.tag).then(function(tag) {
-		tag.destroy().then(function(err, tag) {
-			if (err) {
-				res.status(403).json({
-					errors: err
-				});
-			}
+		tag.destroy().then(function(tag) {
 			// now i'm gone :)
 			res.status(200).json({
 				message: 'Destroy success'

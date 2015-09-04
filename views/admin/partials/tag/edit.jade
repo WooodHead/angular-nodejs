@@ -13,13 +13,6 @@ div(ng-controller='TagController' ng-init='findEdit()')
 							input.form-control(type='text' ng-model='formData.name')
 							| 							
 							p.text-danger(ng-bind='errors.name')
-						| 						
-						.form-group
-							label(for='slug') Slug
-							| 							
-							input.form-control(type='text' ng-model='formData.slug')
-							| 							
-							p.text-danger(ng-bind='errors.slug')
 					| 					
 					.box-footer
 						button.btn.btn-primary Save

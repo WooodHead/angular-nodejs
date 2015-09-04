@@ -41,12 +41,7 @@ exports.update = function(req, res) {
 	models.Post.findById(req.params.post).then(function(post) {
 		post.name = req.param('name');
 		post.slug = req.param('slug');
-		post.save().then(function(err, post) {
-			if (err) {
-				res.status(403).json({
-					errors: err
-				});
-			}
+		post.save().then(function(post) {
 			res.status(200).json({
 				message: 'Update success'
 			});
@@ -56,12 +51,7 @@ exports.update = function(req, res) {
 
 exports.destroy = function(req, res) {
 	models.Post.findById(req.params.post).then(function(item) {
-		item.destroy().then(function(err, post) {
-			if (err) {
-				res.status(403).json({
-					errors: err
-				});
-			}
+		item.destroy().then(function(post) {
 
 			res.status(200).json({
 				message: 'Destroy success'

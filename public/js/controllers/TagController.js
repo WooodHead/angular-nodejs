@@ -28,9 +28,7 @@ angular
 
 		$scope.update = function() {
 			var data = {
-				name: $scope.formData.name,
-				slug: $scope.formData.slug,
-				format: 'json'
+				name: $scope.formData.name
 			};
 
 			Tag.one($routeParams.id).put(data).then(function(response) {

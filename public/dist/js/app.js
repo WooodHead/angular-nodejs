@@ -34,7 +34,9 @@ angular.module('Beep', [
 	$compileProvider.debugInfoEnabled(true);
 	RestangularProvider.setBaseUrl('/admin/api/v1');
 	//RestangularProvider.setRequestSuffix('.json');
-	//RestangularProvider.setDefaultHeaders({'Content-Type': 'application/json'});
+	RestangularProvider.setDefaultHeaders({
+		'Content-Type': 'application/json'
+	});
 	//RestangularProvider.setDefaultRequestParams({format: 'json'});
 });
 angular
@@ -109,6 +111,7 @@ angular
 angular
 	.module('AuthController', [])
 	.controller('AuthController', function($scope, $location, $localStorage, Auth) {
+
 		$scope.login = function() {
 			var credentials = {
 				email: $scope.login.email,
@@ -824,9 +827,7 @@ angular
 
 		$scope.update = function() {
 			var data = {
-				name: $scope.formData.name,
-				slug: $scope.formData.slug,
-				format: 'json'
+				name: $scope.formData.name
 			};
 
 			Tag.one($routeParams.id).put(data).then(function(response) {
