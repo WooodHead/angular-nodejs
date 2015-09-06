@@ -2,6 +2,7 @@
 angular.module('Beep', [
 	'ngRoute',
 	'appRoute',
+	'ngAnimate',
 	'restangular',
 	'ngStorage',
 	'ui-notification',

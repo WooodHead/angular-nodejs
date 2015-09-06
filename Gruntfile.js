@@ -8,6 +8,9 @@ module.exports = function(grunt) {
             js: [
                 "public/dist/js/*.js",
                 "!public/dist/js/*.min.js"
+            ],
+            css: [
+                'public/dist/css'
             ]
         },
 
@@ -46,16 +49,16 @@ module.exports = function(grunt) {
                 options: {
                     map: true
                 },
-                src: 'assets/dist/css/<%= pkg.name %>.css'
+                src: 'public/dist/css/<%= pkg.name %>.css'
             }
         },
 
         csscomb: {
             dist: {
                 expand: true,
-                cwd: 'assets/dist/css/',
+                cwd: 'public/dist/css/',
                 src: ['*.css', '!*.min.css'],
-                dest: 'assets/dist/css/'
+                dest: 'public/dist/css/'
             }
         },
 
@@ -65,7 +68,7 @@ module.exports = function(grunt) {
                     style: 'expanded'
                 },
                 files: [{
-                    'assets/dist/css/<%= pkg.name %>.css': 'assets/scss/site.scss',
+                    'public/dist/css/<%= pkg.name %>.css': 'public/scss/site.scss',
                 }]
             }
         },
@@ -140,6 +143,9 @@ module.exports = function(grunt) {
 
 
     grunt.registerTask('angular', ['clean:js', 'concat']);
+    grunt.registerTask('js', ['clean:js', 'concat']);
+
+    grunt.registerTask('css', ['clean:css', 'sass-css']);
 
     grunt.registerTask('dist', ['clean:dist', 'sass-css', 'concat']);
 

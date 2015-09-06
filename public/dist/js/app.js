@@ -2,6 +2,7 @@
 angular.module('Beep', [
 	'ngRoute',
 	'appRoute',
+	'ngAnimate',
 	'restangular',
 	'ngStorage',
 	'ui-notification',
@@ -675,8 +676,11 @@ angular
 			$scope.f.isUpload = true;
 			$scope.f.isDone = false;
 			Upload.upload({
+				headers: {
+					'Content-Type': file.type
+				},
 				method: 'POST',
-				url: 'admin/api/v1/profile/upload',
+				url: '/admin/api/v1/upload',
 				sendFieldsAs: 'form',
 				file: file
 			}).progress(function(evt) {
@@ -800,6 +804,9 @@ angular.module('RoleController', ['frapontillo.bootstrap-duallistbox'])
 angular
 	.module('TagController', [])
 	.controller('TagController', function($scope, $routeParams, Tag, Notification) {
+
+		$scope.pageClass = 'page-tag';
+
 		$scope.getList = function() {
 			Tag.getList().then(function(tags) {
 				$scope.tags = tags;

@@ -44,8 +44,11 @@ angular
 			$scope.f.isUpload = true;
 			$scope.f.isDone = false;
 			Upload.upload({
+				headers: {
+					'Content-Type': file.type
+				},
 				method: 'POST',
-				url: 'admin/api/v1/profile/upload',
+				url: '/admin/api/v1/upload',
 				sendFieldsAs: 'form',
 				file: file
 			}).progress(function(evt) {

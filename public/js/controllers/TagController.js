@@ -1,6 +1,9 @@
 angular
 	.module('TagController', [])
 	.controller('TagController', function($scope, $routeParams, Tag, Notification) {
+
+		$scope.pageClass = 'page-tag';
+
 		$scope.getList = function() {
 			Tag.getList().then(function(tags) {
 				$scope.tags = tags;

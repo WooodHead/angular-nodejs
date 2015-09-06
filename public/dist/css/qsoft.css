@@ -1,0 +1,20 @@
+.content.ng-leave
+{
+    -webkit-animation: fadeOutRight .5s;
+            animation: fadeOutRight .5s;
+}
+.content.ng-enter
+{
+    -webkit-animation: fadeInRight .5s;
+            animation: fadeInRight .5s;
+    -webkit-animation-delay: .4s;
+            animation-delay: .4s;
+
+    opacity: 1;
+}
+.content.ng-enter.ng-enter-active
+{
+    opacity: 0;
+}
+
+/*# sourceMappingURL=qsoft.css.map */

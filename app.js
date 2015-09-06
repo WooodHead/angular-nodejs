@@ -1,14 +1,14 @@
 require('dotenv').load();
-var http = require("http"),
-	path = require('path'),
-	logger = require('morgan'),
-	express = require('express'),
-	methodOverride = require('method-override'),
-	Resource = require('express-resource'),
-	cookieParser = require('cookie-parser'),
-	bodyParser = require('body-parser'),
-	multer = require('multer'),
-	jwt = require('jsonwebtoken');
+var http = require('http');
+var path = require('path');
+var logger = require('morgan');
+var express = require('express');
+var methodOverride = require('method-override');
+var Resource = require('express-resource');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var multer = require('multer');
+var jwt = require('jsonwebtoken');
 
 var app = express(),
 	admin = express(),
@@ -29,7 +29,7 @@ app.use('/admin', admin);
 app.use(cookieParser());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.use(logger('dev'));
+//app.use(logger('dev'));
 app.use(methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -57,10 +57,6 @@ api.use(bodyParser.json({
 	type: 'application/*'
 }));
 
-api.use(bodyParser.raw({
-	type: 'application/*'
-}));
-
 api.use(bodyParser.urlencoded({
 	extended: true
 }));
@@ -73,6 +69,13 @@ api.resource('category', require('./resources/api/category'));
 
 api.resource('post', require('./resources/api/post'));
 
+api.use('/upload', function(req, res, next) {
+	req.accepts('image/*');
+	console.log('DKMM');
+	next();
+}, require('./routes/upload'));
+
+//api.use(multer());
 /*
 api.use(function(req, res, next) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
@@ -81,10 +84,16 @@ api.use(function(req, res, next) {
 	next();
 });
 
+http.createServer(function(request, response) {
+	response.writeHead(200, {
+		"Content-Type": "application/json"
+	});
+	response.end("Hello World\n");
+});
 */
 
 
-var server = app.listen(port, function(req, res) {
 
-	console.log('Example app listening at http://localhost:%s', port);
+app.listen(port, function(req, res) {
+	console.log('App listening at http://localhost:%s', port);
 });

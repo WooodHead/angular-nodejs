@@ -3,7 +3,7 @@ var slugify = require('slug');
 
 exports.index = function(req, res) {
 	models.Post.findAll({
-		limit: 5
+		limit: 15
 	}).then(function(data) {
 		res.json(data);
 	});

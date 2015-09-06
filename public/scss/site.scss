@@ -1,0 +1,25 @@
+@import "variables";
+
+.content {
+	&.ng-leave {
+		animation: fadeOutRight .5s;
+		//opacity: 0;
+
+		&.ng-leave-active {
+			//opacity: 1;
+		}
+
+	}
+
+	&.ng-enter {
+		animation-delay: .4s;
+		animation: fadeInRight .5s;
+		opacity: 1;
+
+		&.ng-enter-active {
+			opacity: 0;
+		}
+
+	}
+
+}

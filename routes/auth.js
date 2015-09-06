@@ -1,9 +1,9 @@
 require('dotenv').load();
 var express = require('express');
 var validator = require('validator');
-var router = express.Router(),
-	models = require('../models'),
-	jwt = require('jsonwebtoken');
+var router = express.Router();
+var models = require('../models');
+var jwt = require('jsonwebtoken');
 
 var passwordHash = require('password-hash');
 
@@ -29,6 +29,9 @@ router.get('/me', function(req, res, next) {
 	});
 });
 
+router.get('/logout', function(req, res) {
+
+});
 // POST method route
 router.post('/login', function(req, res) {
 	// find the user
@@ -102,6 +105,7 @@ router.post('/register', function(req, res) {
 	var data = {
 		name: req.body.name,
 		email: req.body.email,
+		image: '/image/no-image.png',
 		password: passwordHash.generate(req.body.password)
 	};
 	models.User.create(data).then(function(user) {

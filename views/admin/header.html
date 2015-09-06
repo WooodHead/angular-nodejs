@@ -1,6 +1,6 @@
 <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a ng-href="/admin" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>A</b>LT</span>
         <!-- logo for regular state and mobile devices -->
@@ -11,22 +11,25 @@
         <!-- Sidebar toggle button-->
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
         </a>
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">                
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu" ng-if="authUser != null">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <a ng-href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img ng-src="{{authUser.image}}" class="user-image" alt="User Image">
-                        <span class="hidden-xs">Alexander Pierce</span>
+                        <span class="hidden-xs" ng-bind="authUser.name"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
                             <img src="{{authUser.image}}" class="img-circle" alt="User Image">
                             <p>
-                                Alexander Pierce - Web Developer
+                                {{authUser.name}} - Web Developer
                                 <small>Member since Nov. 2012</small>
                             </p>
                         </li>
