@@ -4,12 +4,19 @@ module.exports = function(sequelize, DataTypes) {
         name: DataTypes.STRING,
         slug: DataTypes.STRING
     }, {
-        createdAt: 'created_at',
-        updatedAt: 'updated_at',
+        underscored: true,
         timestamps: true,
         classMethods: {
             associate: function(models) {
                 // associations can be defined here
+                Tag.belongsToMany(models.Post, {
+                    through: 'post_tags',
+                    as: 'posts',
+                    constraints: false,
+                    onUpdate: 'CASCADE',
+                    onDelete: 'CASCADE',
+                    foreignKey: 'tag_id'
+                });
             }
         }
     });

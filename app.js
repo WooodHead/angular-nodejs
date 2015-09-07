@@ -1,4 +1,6 @@
 require('dotenv').load();
+
+//var debug = require('debug')('http');
 var http = require('http');
 var path = require('path');
 var logger = require('morgan');
@@ -29,7 +31,7 @@ app.use('/admin', admin);
 app.use(cookieParser());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-//app.use(logger('dev'));
+app.use(logger('dev'));
 app.use(methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -38,7 +40,19 @@ app.use(express.static(path.join(__dirname, 'public')));
  * Admin config
  *
  */
-
+function checkAuth(req, res, next) {
+	console.log('message');
+	var bearerToken;
+	var bearerHeader = req.headers.authorization;
+	if (typeof bearerHeader !== 'undefined') {
+		var bearer = bearerHeader.split(" ");
+		bearerToken = bearer[1];
+		req.token = bearerToken;
+		return next();
+	} else {
+		res.redirect('/admin');
+	}
+}
 
 admin.use('/api/v1', api);
 admin.set('views', path.join(__dirname, 'views', 'admin'));
@@ -61,17 +75,20 @@ api.use(bodyParser.urlencoded({
 	extended: true
 }));
 
+//api.all('tag*', checkAuth);
+
 api.use('/auth', require('./routes/auth'));
 
-api.resource('tag', require('./resources/api/tag'));
+api.use('/tag', require('./routes/tag'));
+api.use('/post', checkAuth, require('./routes/post'));
+//api.resource('tag', require('./resources/api/tag'));
 
 api.resource('category', require('./resources/api/category'));
 
-api.resource('post', require('./resources/api/post'));
+//api.resource('post', require('./resources/api/post'));
 
 api.use('/upload', function(req, res, next) {
 	req.accepts('image/*');
-	console.log('DKMM');
 	next();
 }, require('./routes/upload'));
 

@@ -29,7 +29,7 @@ div(ng-controller='PostController' ng-init='findOne()')
 									| 									
 									input.form-control(type='text' ng-model='formData.slug' ng-value='formData.slug')
 									| 									
-									p.text-danger {!! $errors->post->first('slug') !!}
+									p.text-danger(ng-bind='errors.slug')
 							| 							
 							.box-footer
 					| 					

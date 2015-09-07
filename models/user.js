@@ -2,15 +2,22 @@
 module.exports = function(sequelize, DataTypes) {
     var User = sequelize.define('User', {
         name: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: false
         },
         image: {
             type: DataTypes.STRING
         },
         email: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                isEmail: true,
+                isLowercase: true
+            }
         },
         password: {
+            allowNull: false,
             type: DataTypes.STRING(60)
         },
         remember_token: {
@@ -22,12 +29,14 @@ module.exports = function(sequelize, DataTypes) {
     }, {
         classMethods: {
             associate: function(models) {
-                // associations can be defined here
-                //User.hasMany(models.Post);
+
+                User.hasMany(models.Post, {
+                    as: 'posts',
+                    constraints: true,
+                    foreignKey: 'user_id'
+                });
             }
         },
-        createdAt: 'created_at',
-        updatedAt: 'updated_at',
         instanceMethods: {
             toJSON: function() {
                 var values = this.get();
@@ -38,8 +47,8 @@ module.exports = function(sequelize, DataTypes) {
                 return values;
             }
         },
+        underscored: true,
         timestamps: true,
-        privateColumns: ['password'],
         charset: 'utf8',
         collate: 'utf8_unicode_ci'
     });

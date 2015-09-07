@@ -1,4 +1,5 @@
 'use strict';
+var models = require('../models');
 
 module.exports = {
     up: function(queryInterface, Sequelize) {
@@ -29,7 +30,7 @@ module.exports = {
             user_id: {
                 type: Sequelize.INTEGER,
                 references: {
-                    model: "users",
+                    model: 'users',
                     key: 'id',
                     onUpdate: 'CASCADE',
                     onDelete: 'SET NULL'

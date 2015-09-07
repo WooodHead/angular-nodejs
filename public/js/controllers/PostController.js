@@ -85,7 +85,6 @@ angular
 				console.log(response);
 				$scope.form = {};
 				Notification.primary({
-					title: response.title,
 					message: response.message
 				});
 			}, function(err) {
@@ -105,9 +104,8 @@ angular
 				if (response.status) {
 					var index = $scope.posts.indexOf(post);
 
-					Notification({
+					Notification.primary({
 						title: response.title,
-						type: response.type,
 						message: response.message
 					});
 					$scope.posts.splice(index, 1);

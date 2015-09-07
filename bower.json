@@ -34,6 +34,7 @@
     "microplugin": "0.0.x",
     "ng-file-upload": "~7.0.15",
     "ng-file-upload-shim": "~7.0.15",
+    "ng-img-crop": "ngImgCrop#~0.3.2",
     "ngReact": "~0.1.7",
     "ngstorage": "~0.3.9",
     "restangular": "~1.5.1",

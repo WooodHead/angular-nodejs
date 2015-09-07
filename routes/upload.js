@@ -21,8 +21,7 @@ var upload_path = 'public/' + base_upload_path;
 
 mkdirp(upload_path, function(err) {
 	if (err)
-		console.error(err)
-	else console.log('pow!')
+		console.error(err);
 });
 
 var storage = multer.diskStorage({

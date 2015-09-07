@@ -11,6 +11,7 @@
 						<th>ID</th>
 						<th>Name</th>
 						<th>Category</th>
+						<th>Tag</th>
 						<th>Author</th>
 						<th>Option</th>
 					</tr>
@@ -20,6 +21,7 @@
                     	<th>ID</th>
 						<th>Name</th>
 						<th>Category</th>
+						<th>Tag</th>
 						<th>Author</th>
 						<th>Option</th>
                     </tr>
@@ -30,6 +32,9 @@
                 		<td ng-bind="post.name"></td>
                 		<td>
                 			<span class="label label-primary" ng-repeat="category in post.categories" ng-bind="category.name"></span>
+                		</td>
+                		<td>
+                			<span class="label label-primary" ng-repeat="tag in post.tags" ng-bind="tag.name"></span>
                 		</td>
                 		<td ng-bind="post.user.name"></td>
                 		<td>

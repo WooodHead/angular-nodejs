@@ -2,7 +2,7 @@
 
 .content {
 	&.ng-leave {
-		animation: fadeOutRight .5s;
+		animation: fadeOutUp .5s;
 		//opacity: 0;
 
 		&.ng-leave-active {
@@ -12,8 +12,8 @@
 	}
 
 	&.ng-enter {
-		animation-delay: .4s;
-		animation: fadeInRight .5s;
+		animation-delay: .5s;
+		animation: fadeInUp .5s;
 		opacity: 1;
 
 		&.ng-enter-active {

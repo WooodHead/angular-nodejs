@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
     up: function(queryInterface, Sequelize) {
-        queryInterface.createTable('categories', {
+        return queryInterface.createTable('categories', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -28,44 +28,10 @@ module.exports = {
             }
         });
 
-        queryInterface.createTable('post_categories', {
-            category_id: {
-                allowNull: false,
-                primaryKey: true,
-                type: Sequelize.INTEGER,
-                references: {
-                    model: "categories",
-                    key: 'id',
-                    onUpdate: 'CASCADE',
-                    onDelete: 'CASCADE'
-                }
-            },
-            post_id: {
-                allowNull: false,
-                primaryKey: true,
-                type: Sequelize.INTEGER,
-                references: {
-                    model: "posts",
-                    key: 'id',
-                    onUpdate: 'CASCADE',
-                    onDelete: 'CASCADE'
-                }
-            },
-            createdAt: {
-                field: 'created_at',
-                allowNull: false,
-                type: Sequelize.DATE
-            },
-            updatedAt: {
-                field: 'updated_at',
-                allowNull: false,
-                type: Sequelize.DATE
-            }
-        });
     },
     down: function(queryInterface, Sequelize) {
-        queryInterface.dropTable('post_categories');
-        queryInterface.dropTable('categories');
+        //queryInterface.dropTable('post_categories');
+        return queryInterface.dropTable('categories');
 
     }
 };

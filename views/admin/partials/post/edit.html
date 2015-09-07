@@ -25,7 +25,7 @@
 								<div class="form-group">
 									<label for="slug">Slug</label>
 									<input type="text" ng-model="formData.slug" ng-value="formData.slug" class="form-control">
-									<p class="text-danger">{!! $errors->post->first('slug') !!}</p>
+									<p class="text-danger" ng-bind="errors.slug"></p>
 								</div>
 							</div>
 							<div class="box-footer"></div>

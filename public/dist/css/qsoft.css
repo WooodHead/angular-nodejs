@@ -1,14 +1,14 @@
 .content.ng-leave
 {
-    -webkit-animation: fadeOutRight .5s;
-            animation: fadeOutRight .5s;
+    -webkit-animation: fadeOutUp .5s;
+            animation: fadeOutUp .5s;
 }
 .content.ng-enter
 {
-    -webkit-animation: fadeInRight .5s;
-            animation: fadeInRight .5s;
-    -webkit-animation-delay: .4s;
-            animation-delay: .4s;
+    -webkit-animation: fadeInUp .5s;
+            animation: fadeInUp .5s;
+    -webkit-animation-delay: .5s;
+            animation-delay: .5s;
 
     opacity: 1;
 }

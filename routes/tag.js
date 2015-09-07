@@ -1,19 +1,17 @@
-var models = require('../../models');
+var express = require('express');
+var router = express.Router();
+var models = require('../models');
 var slugify = require('slug');
 
-exports.index = function(req, res) {
+router.get('/', function(req, res) {
 	models.Tag.findAll({
 		limit: 15
 	}).then(function(tags) {
 		res.json(tags);
 	});
-};
+});
 
-exports.new = function(req, res) {
-	res.send('new forum');
-};
-
-exports.create = function(req, res) {
+router.post('/', function(req, res) {
 	var tag = {
 		name: req.body.name,
 		slug: slugify(req.body.name, {
@@ -25,19 +23,16 @@ exports.create = function(req, res) {
 			message: 'Create new tag ' + success.name
 		});
 	});
-};
+});
 
-exports.show = function(req, res) {
+router.get('/:tag', function(req, res) {
 	models.Tag.findById(req.params.tag).then(function(tag) {
 		res.json(tag);
 	});
-};
+});
 
-exports.edit = function(req, res) {
 
-};
-
-exports.update = function(req, res) {
+router.put('/:tag', function(req, res) {
 	models.Tag.findById(req.params.tag).then(function(tag) {
 		tag.name = req.param('name');
 		tag.slug = slugify(req.param('name'), {
@@ -49,9 +44,9 @@ exports.update = function(req, res) {
 			});
 		});
 	});
-};
+});
 
-exports.destroy = function(req, res) {
+router.delete('/:tag', function(req, res) {
 	models.Tag.findById(req.params.tag).then(function(tag) {
 		tag.destroy().then(function(tag) {
 			// now i'm gone :)
@@ -60,4 +55,6 @@ exports.destroy = function(req, res) {
 			});
 		});
 	});
-};
+});
+
+module.exports = router;

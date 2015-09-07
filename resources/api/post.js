@@ -3,7 +3,13 @@ var slugify = require('slug');
 
 exports.index = function(req, res) {
 	models.Post.findAll({
-		limit: 15
+		limit: 15,
+		include: [{
+			model: models.User,
+			where: {
+				user_id: Sequelize.col('users.id')
+			}
+		}]
 	}).then(function(data) {
 		res.json(data);
 	});
@@ -14,17 +20,30 @@ exports.new = function(req, res) {
 };
 
 exports.create = function(req, res) {
-	var data = {
-		name: req.body.name,
-		slug: slugify(req.body.name, {
-			lower: true
-		}),
-		content: req.body.content,
-		description: req.body.description
-	};
-	models.Post.create(data).then(function(success) {
-		res.json(success);
+
+	models.User.findOne({
+		where: {
+			token: req.token
+		}
+	}).then(function(user) {
+		res.json(user);
+		/*
+		var data = {
+			name: req.body.name,
+			slug: slugify(req.body.name, {
+				lower: true
+			}),
+			content: req.body.content,
+			description: req.body.description,
+			user_id: user.id
+		};
+		models.Post.create(data).then(function(post) {
+			res.json(post);
+		});
+*/
 	});
+
+
 };
 
 exports.show = function(req, res) {

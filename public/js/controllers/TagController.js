@@ -16,10 +16,13 @@ angular
 		$scope.create = function() {
 
 			Tag.post($scope.form).then(function(response) {
-				console.log(response);
 				$scope.form = {};
+				Notification.primary({
+					title: response.title,
+					message: response.message
+				});
 			}, function(err) {
-				console.log(err);
+				$scope.errors = err.data.errors;
 			});
 		}
 

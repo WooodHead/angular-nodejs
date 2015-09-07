@@ -16,6 +16,8 @@ div(ng-controller='PostController' ng-init='getList()')
 						| 						
 						th Category
 						| 						
+						th Tag
+						| 						
 						th Author
 						| 						
 						th Option
@@ -27,6 +29,8 @@ div(ng-controller='PostController' ng-init='getList()')
 						th Name
 						| 						
 						th Category
+						| 						
+						th Tag
 						| 						
 						th Author
 						| 						
@@ -40,6 +44,9 @@ div(ng-controller='PostController' ng-init='getList()')
 						|                 		
 						td
 							span.label.label-primary(ng-repeat='category in post.categories' ng-bind='category.name')
+						|                 		
+						td
+							span.label.label-primary(ng-repeat='tag in post.tags' ng-bind='tag.name')
 						|                 		
 						td(ng-bind='post.user.name')
 						|                 		

@@ -337,13 +337,14 @@ angular
 
 			if (typeof $localStorage.token === 'undefined') {
 				//$location.path('/admin/auth/login');
-				//return null;
+				return null;
 			}
 
 			Auth.one('me').get().then(function(user) {
 				$scope.authUser = user;
 			}, function(err) {
 				//$location.path('/admin/auth/login');
+				delete $localStorage.token;
 				console.log(err);
 			});
 		};
@@ -561,7 +562,6 @@ angular
 				console.log(response);
 				$scope.form = {};
 				Notification.primary({
-					title: response.title,
 					message: response.message
 				});
 			}, function(err) {
@@ -581,9 +581,8 @@ angular
 				if (response.status) {
 					var index = $scope.posts.indexOf(post);
 
-					Notification({
+					Notification.primary({
 						title: response.title,
-						type: response.type,
 						message: response.message
 					});
 					$scope.posts.splice(index, 1);
@@ -819,10 +818,13 @@ angular
 		$scope.create = function() {
 
 			Tag.post($scope.form).then(function(response) {
-				console.log(response);
 				$scope.form = {};
+				Notification.primary({
+					title: response.title,
+					message: response.message
+				});
 			}, function(err) {
-				console.log(err);
+				$scope.errors = err.data.errors;
 			});
 		}
 
