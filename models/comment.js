@@ -25,28 +25,27 @@ module.exports = function(sequelize, DataTypes) {
 			}
 		}
 	}, {
-		underscored: true,
 		classMethods: {
 			associate: function(models) {
 				// associations can be defined here
-				/*
-								Comment.hasOne(models.User, {
-									as: 'user',
-									constraints: false,
-									onUpdate: 'CASCADE',
-									onDelete: 'CASCADE',
-									foreignKey: 'user_id'
-								});
+
+				Comment.hasOne(models.User, {
+					as: 'user',
+					constraints: false,
+					onUpdate: 'CASCADE',
+					onDelete: 'CASCADE',
+					foreignKey: 'id'
+				});
 
 
-								Comment.hasOne(models.Post, {
-									as: 'post',
-									constraints: false,
-									onUpdate: 'CASCADE',
-									onDelete: 'CASCADE',
-									foreignKey: 'post_id'
-								});
-				*/
+				Comment.hasOne(models.Post, {
+					as: 'post',
+					constraints: false,
+					onUpdate: 'CASCADE',
+					onDelete: 'CASCADE',
+					foreignKey: 'id'
+				});
+
 			}
 		}
 	});

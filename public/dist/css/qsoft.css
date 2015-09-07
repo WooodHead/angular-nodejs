@@ -2,6 +2,12 @@
 {
     -webkit-animation: fadeOutUp .5s;
             animation: fadeOutUp .5s;
+
+    opacity: 0;
+}
+.content.ng-leave.ng-leave-active
+{
+    opacity: 1;
 }
 .content.ng-enter
 {

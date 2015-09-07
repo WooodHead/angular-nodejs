@@ -36,14 +36,14 @@ angular
 			var data = {
 				name: $scope.formData.name
 			};
-
-			Tag.one($routeParams.id).put(data).then(function(response) {
-				Notification.primary({
-					message: response.message
+			Tag.one($routeParams.id).patch(data)
+				.then(function(response) {
+					Notification.primary({
+						message: response.message
+					});
+				}, function(err) {
+					$scope.errors = err.data.errors;
 				});
-			}, function(err) {
-				$scope.errors = err.data.errors;
-			});
 		}
 
 

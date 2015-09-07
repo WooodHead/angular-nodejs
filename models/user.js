@@ -46,11 +46,7 @@ module.exports = function(sequelize, DataTypes) {
                 delete values.remember_token;
                 return values;
             }
-        },
-        underscored: true,
-        timestamps: true,
-        charset: 'utf8',
-        collate: 'utf8_unicode_ci'
+        }
     });
     return User;
 };

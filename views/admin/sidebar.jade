@@ -62,19 +62,17 @@ aside.main-sidebar(ng-controller='NavigationController' ng-if='authUser != null'
 					i.fa.fa-tags
 					|  
 					span Tag
-			|             
-			li(ng-class="{active:isActive('/admin/permission')}")
-				a(ng-href='/admin/permission')
-					i.fa.fa-key
-					|  
-					span Permission
-			|             
-			li(ng-class="{active:isActive('/admin/role')}")
-				a(ng-href='/admin/role')
-					i.fa.fa-gavel
-					|  
-					span Role
-			|             
+			//
+				<li ng-class="{active:isActive('/admin/permission')}">
+				<a ng-href="/admin/permission">
+				<i class="fa fa-key"></i> <span>Permission</span>
+				</a>
+				</li>
+				<li ng-class="{active:isActive('/admin/role')}">
+				<a ng-href="/admin/role">
+				<i class="fa fa-gavel"></i> <span>Role</span>
+				</a>
+				</li>
 			li(ng-class="{active:isActive('/admin/user-manager')}")
 				a(ng-href='/admin/user-manager')
 					i.fa.fa-users

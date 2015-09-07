@@ -15,7 +15,12 @@ exports.partials = function(req, res) {
 	res.render('partials/' + paramVals.join('/'));
 };
 
-exports.index = function(req, res, next) {
+exports.admin = function(req, res, next) {
+	res.render('layout');
+	next();
+};
+
+exports.home = function(req, res, next) {
 	res.render('layout');
 	next();
 };

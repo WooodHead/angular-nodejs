@@ -2,11 +2,25 @@ var express = require('express');
 var router = express.Router();
 var models = require('../models');
 var slugify = require('slug');
-var Sequelize = require('sequelize');
+
+var colors = require('colors/safe');
+colors.setTheme({
+	silly: 'rainbow',
+	input: 'grey',
+	verbose: 'cyan',
+	prompt: 'grey',
+	info: 'green',
+	data: 'grey',
+	help: 'cyan',
+	warn: 'yellow',
+	debug: 'blue',
+	error: 'red'
+});
 
 router.get('/', function(req, res) {
 
-	models.Post.findAll({
+	models.Post.findAndCountAll({
+		order: 'id DESC',
 		limit: 15,
 		include: [{
 			as: 'user',
@@ -21,9 +35,10 @@ router.get('/', function(req, res) {
 			model: models.Tag,
 			required: false
 		}]
-	}).then(function(posts) {
+	}).then(function(result) {
 		res.json({
-			data: posts
+			data: result.rows,
+			totalItems: result.count
 		});
 	});
 });
@@ -57,19 +72,39 @@ router.post('/', function(req, res) {
 });
 
 router.get('/:post', function(req, res) {
-	models.Post.findById(req.params.post).then(function(post) {
+	models.Post.findOne({
+		where: {
+			id: req.params.post
+		},
+		include: [{
+			as: 'categories',
+			model: models.Category,
+			required: false,
+			attributes: ['id']
+		}, {
+			as: 'tags',
+			model: models.Tag,
+			required: false
+		}]
+	}).then(function(post) {
+
 		res.json(post);
 	});
 });
 
 
-router.put('/:post', function(req, res) {
+router.patch('/:post', function(req, res) {
 	models.Post.findById(req.params.post).then(function(post) {
-		post.name = req.param('name');
-		post.slug = slugify(req.param('name'), {
+		post.name = req.body.name;
+		post.slug = slugify(req.body.name, {
 			lower: true
 		});
+		post.content = req.body.content;
+		post.description = req.body.description;
+
 		post.save().then(function(post) {
+			post.setCategories(req.body.categories);
+			post.setTags(req.body.tags);
 			res.status(200).json({
 				message: 'Update success'
 			});

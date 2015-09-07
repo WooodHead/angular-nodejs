@@ -19,7 +19,6 @@ module.exports = function(sequelize, DataTypes) {
         },
         status: DataTypes.BOOLEAN
     }, {
-        underscored: true,
         classMethods: {
             associate: function(models) {
                 // associations can be defined here
@@ -65,10 +64,16 @@ module.exports = function(sequelize, DataTypes) {
                     onUpdate: 'CASCADE',
                     onDelete: 'CASCADE'
                 });
+            },
+            getListCategoryId: function() {
+                return this.categories.id;
             }
         },
-        charset: 'utf8',
-        collate: 'utf8_unicode_ci'
+        instanceMethods: {
+            method2: function() {
+
+            }
+        }
     });
 
     return Post;

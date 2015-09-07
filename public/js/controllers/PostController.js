@@ -137,10 +137,9 @@ angular
 			post.categories = $scope.formData.categories;
 			post.tags = $scope.formData.tags;
 
-			post.put().then(function(response) {
+			post.patch().then(function(response) {
 				Notification({
 					title: response.title,
-					type: response.type,
 					message: response.message
 				});
 			}, function(response) {

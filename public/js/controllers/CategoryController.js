@@ -42,16 +42,14 @@ angular
 
 			category.name = $scope.formData.name;
 
-			category.put().then(function(response) {
-				Notification({
+			category.patch().then(function(response) {
+				Notification.primary({
 					title: response.title,
-					type: response.type,
 					message: response.message
 				});
 			}, function(response) {
-				Notification({
+				Notification.error({
 					title: response.title,
-					type: 'error',
 					message: response.message
 				});
 			});
@@ -62,18 +60,16 @@ angular
 			data.remove().then(function(response) {
 				var index = $scope.categories.indexOf(data);
 
-				Notification({
+				Notification.primary({
 					title: response.title,
-					type: response.type,
 					message: response.message
 				});
 
 				$scope.categories.splice(index, 1);
 
 			}, function(response) {
-				Notification({
+				Notification.error({
 					title: response.title,
-					type: response.type,
 					message: response.message
 				});
 

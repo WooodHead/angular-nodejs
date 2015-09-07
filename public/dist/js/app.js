@@ -193,16 +193,14 @@ angular
 
 			category.name = $scope.formData.name;
 
-			category.put().then(function(response) {
-				Notification({
+			category.patch().then(function(response) {
+				Notification.primary({
 					title: response.title,
-					type: response.type,
 					message: response.message
 				});
 			}, function(response) {
-				Notification({
+				Notification.error({
 					title: response.title,
-					type: 'error',
 					message: response.message
 				});
 			});
@@ -213,18 +211,16 @@ angular
 			data.remove().then(function(response) {
 				var index = $scope.categories.indexOf(data);
 
-				Notification({
+				Notification.primary({
 					title: response.title,
-					type: response.type,
 					message: response.message
 				});
 
 				$scope.categories.splice(index, 1);
 
 			}, function(response) {
-				Notification({
+				Notification.error({
 					title: response.title,
-					type: response.type,
 					message: response.message
 				});
 
@@ -614,10 +610,9 @@ angular
 			post.categories = $scope.formData.categories;
 			post.tags = $scope.formData.tags;
 
-			post.put().then(function(response) {
+			post.patch().then(function(response) {
 				Notification({
 					title: response.title,
-					type: response.type,
 					message: response.message
 				});
 			}, function(response) {
@@ -651,9 +646,9 @@ angular
 				password: $scope.formUser.password
 			};
 
-			Profile.one().put(user).then(function(response) {
-				console.log(response);
-				Notification({
+			Profile.one().patch(user).then(function(response) {
+				$scope.formUser.password = "";
+				Notification.primary({
 					title: response.title,
 					message: response.message
 				});
@@ -838,14 +833,14 @@ angular
 			var data = {
 				name: $scope.formData.name
 			};
-
-			Tag.one($routeParams.id).put(data).then(function(response) {
-				Notification.primary({
-					message: response.message
+			Tag.one($routeParams.id).patch(data)
+				.then(function(response) {
+					Notification.primary({
+						message: response.message
+					});
+				}, function(err) {
+					$scope.errors = err.data.errors;
 				});
-			}, function(err) {
-				$scope.errors = err.data.errors;
-			});
 		}
 
 

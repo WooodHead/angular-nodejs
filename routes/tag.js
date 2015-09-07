@@ -5,8 +5,10 @@ var slugify = require('slug');
 
 router.get('/', function(req, res) {
 	models.Tag.findAll({
+		order: 'id DESC',
 		limit: 15
 	}).then(function(tags) {
+
 		res.json(tags);
 	});
 });
@@ -32,15 +34,16 @@ router.get('/:tag', function(req, res) {
 });
 
 
-router.put('/:tag', function(req, res) {
+router.patch('/:tag', function(req, res) {
 	models.Tag.findById(req.params.tag).then(function(tag) {
-		tag.name = req.param('name');
-		tag.slug = slugify(req.param('name'), {
+		tag.name = req.body.name;
+		tag.slug = slugify(req.body.name, {
 			lower: true
 		});
+
 		tag.save().then(function(tag) {
 			res.status(200).json({
-				message: 'Update success'
+				message: 'Update tag ' + tag.name
 			});
 		});
 	});

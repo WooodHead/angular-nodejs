@@ -1,6 +1,5 @@
 require('dotenv').load();
 
-//var debug = require('debug')('http');
 var http = require('http');
 var path = require('path');
 var logger = require('morgan');
@@ -13,6 +12,8 @@ var multer = require('multer');
 var jwt = require('jsonwebtoken');
 
 var app = express(),
+	home = express(),
+	homeApi = express(),
 	admin = express(),
 	api = express();
 
@@ -35,13 +36,13 @@ app.use(logger('dev'));
 app.use(methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 /**
  *
- * Admin config
+ * Admin application
  *
  */
 function checkAuth(req, res, next) {
-	console.log('message');
 	var bearerToken;
 	var bearerHeader = req.headers.authorization;
 	if (typeof bearerHeader !== 'undefined') {
@@ -56,9 +57,8 @@ function checkAuth(req, res, next) {
 
 admin.use('/api/v1', api);
 admin.set('views', path.join(__dirname, 'views', 'admin'));
-//admin.get('/partials', require('./routes/partials'));
 admin.get('/partials/:controller/:action?', angular.partials);
-admin.get('*', angular.index);
+admin.get('*', angular.admin);
 
 /**
  *
@@ -68,22 +68,23 @@ admin.get('*', angular.index);
 
 
 api.use(bodyParser.json({
-	type: 'application/*'
+	type: '*/json',
+	strict: true
 }));
 
 api.use(bodyParser.urlencoded({
 	extended: true
 }));
 
-//api.all('tag*', checkAuth);
+//api.all('/tag*', checkAuth, require('./routes/tag'));
 
 api.use('/auth', require('./routes/auth'));
 
-api.use('/tag', require('./routes/tag'));
+api.use('/tag', checkAuth, require('./routes/tag'));
 api.use('/post', checkAuth, require('./routes/post'));
-//api.resource('tag', require('./resources/api/tag'));
-
-api.resource('category', require('./resources/api/category'));
+api.use('/comment', checkAuth, require('./routes/comment'));
+api.use('/profile', checkAuth, require('./routes/profile'));
+api.use('/category', checkAuth, require('./routes/category'));
 
 //api.resource('post', require('./resources/api/post'));
 
@@ -92,24 +93,35 @@ api.use('/upload', function(req, res, next) {
 	next();
 }, require('./routes/upload'));
 
-//api.use(multer());
-/*
-api.use(function(req, res, next) {
-	res.setHeader('Access-Control-Allow-Origin', '*');
-	res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
-	next();
+
+/**
+ *
+ * Home application
+ *
+ */
+
+
+home.use('/api/v1', homeApi);
+home.set('views', path.join(__dirname, 'views', 'home'));
+home.set('view engine', 'jade');
+home.use(logger('dev'));
+home.use(cookieParser());
+home.use(methodOverride());
+home.use(express.static(path.join(__dirname, 'public/home')));
+home.get('*', angular.home);
+
+homeApi.use(bodyParser.json({
+	type: 'application/*'
+}));
+
+homeApi.use(bodyParser.urlencoded({
+	extended: true
+}));
+
+
+home.listen(3000, function(req, res) {
+	console.log('App listening at http://localhost:%s', 3000);
 });
-
-http.createServer(function(request, response) {
-	response.writeHead(200, {
-		"Content-Type": "application/json"
-	});
-	response.end("Hello World\n");
-});
-*/
-
-
 
 app.listen(port, function(req, res) {
 	console.log('App listening at http://localhost:%s', port);

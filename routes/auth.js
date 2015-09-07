@@ -4,7 +4,6 @@ var validator = require('validator');
 var router = express.Router();
 var models = require('../models');
 var jwt = require('jsonwebtoken');
-
 var passwordHash = require('password-hash');
 
 // Get info user

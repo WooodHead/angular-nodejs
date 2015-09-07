@@ -20,9 +20,9 @@ angular
 				password: $scope.formUser.password
 			};
 
-			Profile.one().put(user).then(function(response) {
-				console.log(response);
-				Notification({
+			Profile.one().patch(user).then(function(response) {
+				$scope.formUser.password = "";
+				Notification.primary({
 					title: response.title,
 					message: response.message
 				});

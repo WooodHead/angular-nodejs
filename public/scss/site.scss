@@ -3,10 +3,10 @@
 .content {
 	&.ng-leave {
 		animation: fadeOutUp .5s;
-		//opacity: 0;
+		opacity: 0;
 
 		&.ng-leave-active {
-			//opacity: 1;
+			opacity: 1;
 		}
 
 	}
