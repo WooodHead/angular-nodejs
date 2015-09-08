@@ -28,6 +28,9 @@ var angular = require('./routes/angular');
  */
 
 app.set('superSecret', process.env.APP_KEY);
+app.get('/', function(req, res) {
+	res.redirect('/admin');
+});
 app.use('/admin', admin);
 app.use(cookieParser());
 app.set('views', path.join(__dirname, 'views'));
@@ -51,9 +54,11 @@ function checkAuth(req, res, next) {
 		req.token = bearerToken;
 		return next();
 	} else {
-		res.redirect('/admin');
+		res.redirect('/admin/auth/login');
 	}
 }
+
+app.get('/', checkAuth);
 
 admin.use('/api/v1', api);
 admin.set('views', path.join(__dirname, 'views', 'admin'));
@@ -85,6 +90,7 @@ api.use('/post', checkAuth, require('./routes/post'));
 api.use('/comment', checkAuth, require('./routes/comment'));
 api.use('/profile', checkAuth, require('./routes/profile'));
 api.use('/category', checkAuth, require('./routes/category'));
+api.use('/user-manager', checkAuth, require('./routes/user-manager'));
 
 //api.resource('post', require('./resources/api/post'));
 

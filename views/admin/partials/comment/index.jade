@@ -17,6 +17,8 @@
 							| 							
 							th Author
 							| 							
+							th Avatar
+							| 							
 							th Post
 							| 							
 							th Option
@@ -29,6 +31,8 @@
 							| 							
 							th Author
 							| 							
+							th Avatar
+							| 							
 							th Post
 							| 							
 							th Option
@@ -40,6 +44,9 @@
 							td(ng-bind='comment.content')
 							| 							
 							td(ng-bind='comment.user.name')
+							| 							
+							td
+								img.img-circle(ng-src='{{comment.user.image}}' alt='Avatar' width='50px')
 							| 							
 							td(ng-bind='comment.post.name')
 							| 							

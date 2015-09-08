@@ -34,6 +34,7 @@ router.get('/logout', function(req, res) {
 // POST method route
 router.post('/login', function(req, res) {
 	// find the user
+	//models.User.build().login(req.body.email, req.body.password);
 
 	models.User.findOne({
 		where: {
@@ -70,9 +71,10 @@ router.post('/login', function(req, res) {
 
 			}
 		}
-	}).catch(function(err) {
+	}, function(err) {
 		throw err;
 	});
+
 
 });
 
@@ -116,7 +118,6 @@ router.post('/register', function(req, res) {
 		});
 		user.save().then(function(user1) {
 			res.json({
-				type: true,
 				data: user1,
 				token: user1.token
 			});

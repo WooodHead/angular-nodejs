@@ -12,6 +12,7 @@
 							<th>ID</th>
 							<th>Comment</th>
 							<th>Author</th>
+							<th>Avatar</th>
 							<th>Post</th>
 							<th>Option</th>
 						</tr>
@@ -21,6 +22,7 @@
 							<th>ID</th>
 							<th>Comment</th>
 							<th>Author</th>
+							<th>Avatar</th>
 							<th>Post</th>
 							<th>Option</th>
 						</tr>
@@ -30,6 +32,7 @@
 							<td ng-bind="comment.id"></td>
 							<td ng-bind="comment.content"></td>
 							<td ng-bind="comment.user.name"></td>
+							<td><img ng-src="{{comment.user.image}}" alt="Avatar" class="img-circle" width="50px" /></td>
 							<td ng-bind="comment.post.name"></td>
 							<td>
 								<div class="btn-group">

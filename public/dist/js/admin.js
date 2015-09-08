@@ -875,10 +875,6 @@ angular
 			$scope.orderProp = 'name';
 		}
 
-		Role.getList().then(function(response) {
-			$scope.roles = response;
-		});
-
 		$scope.findEdit = function() {
 			UserManager.one($routeParams.id).get().then(function(data) {
 				$scope.formData = data;
@@ -889,13 +885,12 @@ angular
 			var data = {
 				name: $scope.formData.name,
 				email: $scope.formData.email,
-				password: $scope.formData.password,
-				role: $scope.formData.roles
+				password: $scope.formData.password
 			}
 
 			UserManager.post(data).then(function(response) {
 				$scope.formData = {};
-				Notification({
+				Notification.primary({
 					title: response.title,
 					message: response.message
 				});
@@ -908,8 +903,7 @@ angular
 			var data = {
 				name: $scope.formData.name,
 				email: $scope.formData.email,
-				password: $scope.formData.password,
-				role: $scope.formData.roles
+				password: $scope.formData.password
 			}
 
 			UserManager.one($routeParams.id).put(data).then(function(response) {
@@ -925,15 +919,14 @@ angular
 		$scope.remove = function(data) {
 
 			data.remove().then(function(response) {
-				var index = $scope.categories.indexOf(data);
+				var index = $scope.managers.indexOf(data);
 
 				Notification({
 					title: response.title,
-					type: response.type,
 					message: response.message
 				});
 
-				$scope.categories.splice(index, 1);
+				$scope.managers.splice(index, 1);
 
 			}, function(response) {
 				Notification.error({

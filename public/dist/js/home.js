@@ -116,11 +116,11 @@ angular
 
 		$scope.register = function() {
 
-			Auth.post($scope.regForm).then(function(response) {
+			Auth.one().post('register', $scope.regForm).then(function(response) {
 				$scope.errors = {};
 				$scope.regForm = {};
 				$localStorage.token = response.token;
-				$scope.getAuthenticatedUser(response);
+				$scope.getAuthenticatedUser(response.data);
 
 				// If login is successful, redirect to home page
 				$location.path("/");

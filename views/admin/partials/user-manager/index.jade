@@ -9,7 +9,7 @@ div(ng-controller='UserManagerController' ng-init='getList()')
 				i.fa.fa-plus
 		| 		
 		.box-body
-			table.table.table-hover.datatable
+			table.table.table-hover
 				thead
 					tr
 						th Avatar
@@ -18,7 +18,6 @@ div(ng-controller='UserManagerController' ng-init='getList()')
 						| 						
 						th Mail
 						| 						
-						th Role
 						| 						
 						th Options
 				| 				
@@ -30,7 +29,6 @@ div(ng-controller='UserManagerController' ng-init='getList()')
 						| 						
 						th Mail
 						| 						
-						th Role
 						| 						
 						th Options
 				| 				
@@ -42,10 +40,8 @@ div(ng-controller='UserManagerController' ng-init='getList()')
 						td(ng-bind='manager.name')
 						| 						
 						td
-							a(href='mailto:{{manager.email}}?subject=feedback') {{manager.email}}
+							a(ng-href='mailto:{{manager.email}}?subject=feedback') {{manager.email}}
 						| 						
-						td
-							span.label.label-primary(ng-repeat='role in manager.roles' ng-bind='role.name')
 						| 						
 						td
 							.btn-group

@@ -1,0 +1,35 @@
+div(ng-controller='UserManagerController' ng-init='findEdit()')
+	.row
+		.col-sm-6.col-md-6.col-lg-6
+			.box.box-primary
+				.box-header.with-border
+					h3.box-title Edit permission
+				|                 
+				form(autocomplete='off' ng-submit='update(formData)')
+					.box-body
+						.form-group
+							label(for='name') Name
+							|                             
+							input.form-control(type='text' ng-model='formData.name')
+							|                             
+							p.text-danger(ng-bind='error.name')
+						|                         
+						.form-group
+							label(for='email') Email
+							|                             
+							input.form-control(type='text' ng-model='formData.email')
+							|                             
+							p.text-danger(ng-bind='error.email')
+						|                         
+						.form-group
+							label(for='password') Password
+							|                             
+							input.form-control(type='password' ng-model='formData.password')
+							|                             
+							p.text-danger(ng-bind='error.password')
+					// /.box-body
+					.box-footer
+						button.btn.btn-primary Save
+						|                         
+						a.btn.btn-info.pull-right(ng-href='/admin/user-manager/create')
+							i.fa.fa-plus

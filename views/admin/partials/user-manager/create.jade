@@ -1,0 +1,33 @@
+div(ng-controller='UserManagerController')
+	.row
+		.col-sm-6.col-md-6.col-lg-6
+			.box.box-primary
+				.box-header.with-border
+					h3.box-title Edit permission
+				// /.box-header
+				// form start
+				form(autocomplete='off' ng-submit='create()')
+					.box-body
+						.form-group
+							label(for='name') Name
+							|                             
+							input.form-control(type='text' ng-model='formData.name')
+							|                             
+							p.text-danger(ng-bind='errors.name')
+						|                         
+						.form-group
+							label(for='email') Email
+							|                             
+							input.form-control(type='text' ng-model='formData.email')
+							|                             
+							p.text-danger(ng-bind='errors.email')
+						|                         
+						.form-group
+							label(for='password') Password
+							|                             
+							input.form-control(type='password' ng-model='formData.password')
+							|                             
+							p.text-danger(ng-bind='errors.password')
+					// /.box-body
+					.box-footer
+						button.btn.btn-primary Create

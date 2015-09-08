@@ -2,8 +2,8 @@
 
 module.exports = function(sequelize, DataTypes) {
     var moment = require('moment');
-    //moment.lang('vi');
     var User = sequelize.import('./user');
+
     var Post = sequelize.define('Post', {
         name: DataTypes.STRING,
         slug: DataTypes.STRING,
@@ -40,7 +40,7 @@ module.exports = function(sequelize, DataTypes) {
                     constraints: false,
                     onUpdate: 'CASCADE',
                     onDelete: 'SET NULL',
-                    //foreignKey: 'user_id'
+                    foreignKey: 'user_id'
                 });
 
                 Post.hasMany(models.Comment, {
@@ -85,6 +85,7 @@ module.exports = function(sequelize, DataTypes) {
                 var values = this.get();
 
                 values.due_date = moment(values.created_at).fromNow();
+
                 return values;
             }
         }

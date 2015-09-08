@@ -1,25 +1,23 @@
-{{-- resources/views/angular/admin/comment/edit.blade.php --}}
-
-	<div ng-controller="CommentController" ng-init="findEdit()">
-		<div class="row">
-			<div class="col-sm-6 col-md-6 col-lg-6">
-				<form ng-submit="update()">
-					<div class="box">
-						<div class="box-header with-border">
-							<h3 class="box-title">Edit Comment</h3>
-						</div>
-						<div class="box-body">
-							<div class="form-group">
-							<label for="content">Content</label>
-							<textarea ng-model="formData.content" rows="5" class="form-control"></textarea>
-							<p class="text-danger" ng-bind="errors.content"></p>
-						</div>
-						</div>
-						<div class="box-footer">
-							<button class="btn btn-primary">Update</button>
-						</div>
+<div ng-controller="CommentController" ng-init="findEdit()">
+	<div class="row">
+		<div class="col-sm-6 col-md-6 col-lg-6">
+			<form ng-submit="update()">
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title">Edit Comment</h3>
 					</div>
-				</form>
-			</div>
+					<div class="box-body">
+						<div class="form-group">
+						<label for="content">Content</label>
+						<textarea ng-model="formData.content" rows="5" class="form-control"></textarea>
+						<p class="text-danger" ng-bind="errors.content"></p>
+					</div>
+					</div>
+					<div class="box-footer">
+						<button class="btn btn-primary">Update</button>
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
+</div>

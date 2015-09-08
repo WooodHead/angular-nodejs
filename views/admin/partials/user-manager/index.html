@@ -8,13 +8,12 @@
 			<a ng-href="/admin/user-manager/create" class="pull-right btn btn-success"><i class="fa fa-plus"></i></a>
 		</div>
 		<div class="box-body">
-			<table class="table table-hover datatable">
+			<table class="table table-hover">
 				<thead>
 					<tr>
 						<th>Avatar</th>
 						<th>Name</th>
-						<th>Mail</th>
-						<th>Role</th>
+						<th>Mail</th>						
 						<th>Options</th>
 					</tr>
 				</thead>
@@ -22,8 +21,7 @@
 					<tr>
 						<th>Avatar</th>
 						<th>Name</th>
-						<th>Mail</th>
-						<th>Role</th>
+						<th>Mail</th>						
 						<th>Options</th>
 					</tr>
 				</tfoot>
@@ -31,10 +29,7 @@
 					<tr ng-repeat="manager in managers">
 						<td><img ng-src="{{manager.image}}" alt="Avatar" class="img-circle" width="50px" /></td>
 						<td ng-bind="manager.name"></td>
-						<td><a href="mailto:{{manager.email}}?subject=feedback">{{manager.email}}</a></td>
-						<td>
-							<span class="label label-primary" ng-repeat="role in manager.roles" ng-bind="role.name"></span>
-						</td>
+						<td><a ng-href="mailto:{{manager.email}}?subject=feedback">{{manager.email}}</a></td>						
 						<td>
 							<div class="btn-group">
 								<a class="btn btn-info" ng-href="/admin/user-manager/{{manager.id}}/edit"><i class="fa fa-pencil"></i></a>

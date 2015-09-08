@@ -105,7 +105,7 @@ router.post('/register', function(req, res) {
 		name: req.body.name,
 		email: req.body.email,
 		image: '/image/no-image.png',
-		password: passwordHash.generate(req.body.password)
+		password: req.body.password
 	};
 	models.User.create(data).then(function(user) {
 
@@ -115,7 +115,6 @@ router.post('/register', function(req, res) {
 		});
 		user.save().then(function(user1) {
 			res.json({
-				type: true,
 				data: user1,
 				token: user1.token
 			});
