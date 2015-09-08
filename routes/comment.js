@@ -6,6 +6,7 @@ var models = require('../models');
 router.get('/', function(req, res) {
 
 	models.Comment.findAndCountAll({
+		order: 'id DESC',
 		limit: 15,
 		include: [{
 			as: 'user',

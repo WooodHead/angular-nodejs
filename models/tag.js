@@ -4,11 +4,12 @@ module.exports = function(sequelize, DataTypes) {
         name: DataTypes.STRING,
         slug: DataTypes.STRING
     }, {
+        tableName: 'tags',
         classMethods: {
             associate: function(models) {
                 // associations can be defined here
                 Tag.belongsToMany(models.Post, {
-                    through: 'post_tags',
+                    through: models.PostTag,
                     as: 'posts',
                     constraints: false,
                     onUpdate: 'CASCADE',

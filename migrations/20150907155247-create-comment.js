@@ -16,20 +16,20 @@ module.exports = {
 				allowNull: false,
 				references: {
 					model: 'users',
-					key: 'id',
-					onUpdate: 'CASCADE',
-					onDelete: 'CASCADE'
-				}
+					key: 'id'
+				},
+				onUpdate: 'CASCADE',
+				onDelete: 'CASCADE'
 			},
 			post_id: {
 				type: Sequelize.INTEGER,
 				allowNull: false,
 				references: {
 					model: 'posts',
-					key: 'id',
-					onUpdate: 'CASCADE',
-					onDelete: 'CASCADE'
-				}
+					key: 'id'
+				},
+				onUpdate: 'CASCADE',
+				onDelete: 'CASCADE'
 			},
 			createdAt: {
 				field: 'created_at',

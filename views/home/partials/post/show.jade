@@ -1,0 +1,54 @@
+.col-sm-9.col-md-9.col-lg-9(ng-controller='PostController' ng-init='findPost()')
+	h1(ng-bind='post.name')
+	| 	
+	p
+		i.fa.fa-user
+		|  
+		a(ng-href='/author/{{post.user.slug}}-{{post.user.id}}' ng-bind='post.user.name')
+		|  | 
+		i.fa.fa-clock-o
+		|  {{post.created_at}}
+	| 	
+	.content
+		div(ng-bind-html='post.content')
+		| 		
+		p
+			i.fa.fa-tags
+			|  Tag: 
+			a.s-tag(ng-repeat='tag in post.tags' ng-bind='tag.name' ng-href='/tag/{{tag.slug}}-{{tag.id}}')
+		| 		
+		p
+			| Category: 
+			a.s-tag(ng-repeat='category in post.categories' ng-bind='category.name' ng-href='/category/{{category.slug}}')
+	| 	
+	#comment.panel.panel-default.box
+		.panel-heading
+			h3.panel-title
+				| Comment
+		| 	  	
+		.box-body
+			.comment
+				form(ng-controller='CommentController' ng-submit='comment()' ng-init='listComment()' ng-show='authUser')
+					.row
+						.col-xs-10.col-sm-10.col-md-10.col-lg-10
+							textarea.form-control(rows='2' ng-model='commentForm.comment')
+						| 				  		
+						.col-xs-2.col-sm-2.col-md-2.col-lg-2
+							button.btn.btn-primary.pull-right Comment
+				| 				
+				.media(ng-repeat="comment in comments | orderBy:'-created_at'")
+					a.pull-left(ng-href='#')
+						img.img-circle(ng-src='{{comment.user.image}}' width='80px')
+					| 					
+					.media-body
+						small
+							em
+								strong(ng-bind='comment.user.name')
+								|  say:
+						| 						
+						.well.well-sm
+							p(ng-bind='comment.content')
+						| 						
+						small
+							i.fa.fa-clock-o
+							|  {{comment.due_date}}

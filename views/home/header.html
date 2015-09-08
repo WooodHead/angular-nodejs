@@ -1,0 +1,25 @@
+<header class="navbar navbar-bright navbar-fixed-top affix-top" role="banner" data-spy="affix" data-offset-top="80" data-offset-bottom="200">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" id="brand" ng-href="/" title="Blog">Home</a>
+        </div>
+        <nav class="collapse navbar-collapse" role="navigation" id="navbar">
+            <ul class="nav navbar-nav">
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-if="authUser == null" ><a ng-href="/auth/register" ng-class="{active:isActive('/auth/register')}">Register</a></li>
+                <li ng-if="authUser == null" ng-class="{active:isActive('/auth/login')}"><a data-toggle="modal" data-target="#myModal" ng-href="#">Log in</a></li>
+                <li ng-if="authUser != null" ng-class="{active:isActive('/users/view/' + authUser.id)}"><a ng-href="#" ng-bind="authUser.name"></a></li>
+                <li ng-if="authUser != null" ng-click="logout()"><a ng-href="#">Log out</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<div style="height: 62px; background: #21272d"></div>

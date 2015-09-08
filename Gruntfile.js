@@ -11,18 +11,41 @@ module.exports = function(grunt) {
             ],
             css: [
                 'public/dist/css'
+            ],
+            adminjs: [
+                "public/dist/js/admin.js",
+                "!public/dist/js/admin.min.js"
+            ],
+            admincss: [
+                'public/dist/css/admin.css'
+            ],
+            homecss: [
+                'public/dist/css/home.css'
+            ],
+            homejs: [
+                "public/dist/js/home.js",
+                "!public/dist/js/home.min.js"
             ]
         },
 
         concat: {
             dist: {
                 src: [
-                    'public/js/app.js',
-                    'public/js/appRoute.js',
-                    'public/js/controllers/**/*.js',
-                    'public/js/services/**/*.js'
+                    'public/js/admin/app.js',
+                    'public/js/admin/appRoute.js',
+                    'public/js/admin/controllers/**/*.js',
+                    'public/js/admin/services/**/*.js'
                 ],
-                dest: 'public/dist/js/app.js'
+                dest: 'public/dist/js/admin.js'
+            },
+            home: {
+                src: [
+                    'public/js/home/app.js',
+                    'public/js/home/appRoute.js',
+                    'public/js/home/controllers/**/*.js',
+                    'public/js/home/services/**/*.js'
+                ],
+                dest: 'public/dist/js/home.js'
             }
         },
 
@@ -37,11 +60,12 @@ module.exports = function(grunt) {
                 },
             },
             beforeconcat: [
-                'public/js/app.js',
-                'public/js/appRoute.js',
-                'public/js/controllers/**/*.js'
+                'public/js/admin/app.js',
+                'public/js/admin/appRoute.js',
+                'public/js/admin/controllers/**/*.js',
+                'public/js/admin/services/**/*.js'
             ],
-            afterconcat: ['public/dist/js/<%= pkg.name %>.js']
+            afterconcat: ['public/dist/js/admin.js']
         },
 
         autoprefixer: {
@@ -49,7 +73,13 @@ module.exports = function(grunt) {
                 options: {
                     map: true
                 },
-                src: 'public/dist/css/<%= pkg.name %>.css'
+                src: 'public/dist/css/admin.css'
+            },
+            home: {
+                options: {
+                    map: true
+                },
+                src: 'public/dist/css/home.css'
             }
         },
 
@@ -68,33 +98,19 @@ module.exports = function(grunt) {
                     style: 'expanded'
                 },
                 files: [{
-                    'public/dist/css/<%= pkg.name %>.css': 'public/scss/site.scss',
+                    'public/dist/css/admin.css': 'public/scss/admin/site.scss',
+                }]
+            },
+            home: {
+                options: { // Target options
+                    style: 'expanded'
+                },
+                files: [{
+                    'public/dist/css/home.css': 'public/scss/home/site.scss',
                 }]
             }
         },
 
-        compass: {
-            dist: {
-                options: {
-                    sassDir: 'assets/scss',
-                    cssDir: 'assets/dist/css',
-                    environment: 'production'
-                }
-            },
-            dev: { // Another target 
-                options: {
-                    config: 'config.rb',
-                    sassDir: 'assets/scss',
-                    cssDir: 'assets/dist/css',
-                }
-            }
-        },
-
-        csslint: {
-            dist: [
-                'assets/dist/css/<%= pkg.name %>.css'
-            ]
-        },
         cssmin: {
             options: {
                 compatibility: 'ie8',
@@ -102,8 +118,8 @@ module.exports = function(grunt) {
                 advanced: false
             },
             minifyCore: {
-                src: 'assets/dist/css/<%= pkg.name %>.css',
-                dest: 'assets/dist/css/<%= pkg.name %>.min.css'
+                src: 'public/dist/css/<%= pkg.name %>.css',
+                dest: 'public/dist/css/<%= pkg.name %>.min.css'
             }
         },
 
@@ -118,6 +134,24 @@ module.exports = function(grunt) {
                     'public/dist/js/all.min.js': ['public/js/app.js', 'public/js/appRoute.js', 'public/js/controllers/**/*.js']
                 }
             }
+        },
+
+        csslint: {
+            options: {
+                csslintrc: '.csslintrc'
+            },
+            strict: {
+                options: {
+                    import: 2
+                },
+                src: ['public/css/*.css']
+            },
+            lax: {
+                options: {
+                    import: false
+                },
+                src: ['path/to/**/*.css']
+            }
         }
 
     });
@@ -128,28 +162,30 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-csslint');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-csscomb');
     grunt.loadNpmTasks('grunt-autoprefixer');
-    grunt.loadNpmTasks('grunt-contrib-compass');
 
 
     grunt.registerTask('sass-compile', ['sass:dist']);
     grunt.registerTask('sass-css', ['sass-compile', 'autoprefixer:core', 'csscomb:dist']);
 
-    grunt.registerTask('compass-css', ['compass:dev', 'autoprefixer:core', 'csscomb:dist']);
-
-
     grunt.registerTask('angular', ['clean:js', 'concat']);
-    grunt.registerTask('js', ['clean:js', 'concat']);
 
     grunt.registerTask('css', ['clean:css', 'sass-css']);
 
-    grunt.registerTask('dist', ['clean:dist', 'sass-css', 'concat']);
+    grunt.registerTask('admin-js', ['clean:adminjs', 'concat:dist']);
+    grunt.registerTask('admin-css', ['clean:admincss', 'sass:dist', 'autoprefixer:core', 'csscomb:dist']);
 
-    grunt.registerTask('compas', ['clean:dist', 'compass-css']);
+    grunt.registerTask('home-css', ['clean:homecss', 'sass:home', 'autoprefixer:home', 'csscomb:dist']);
+    grunt.registerTask('home-js', ['clean:homejs', 'concat:home']);
+
+
+    grunt.registerTask('home', ['home-css', 'home-js']);
+    grunt.registerTask('admin', ['admin-css', 'admin-js']);
+
+    grunt.registerTask('dist', ['home', 'admin']);
 
     grunt.registerTask('product', ['clean:dist', 'dist-css', 'cssmin:minifyCore']);
 

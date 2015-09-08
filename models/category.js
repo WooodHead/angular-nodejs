@@ -10,11 +10,10 @@ module.exports = function(sequelize, DataTypes) {
                 Category.belongsToMany(models.Post, {
                     through: 'post_categories',
                     as: 'posts',
-                    constraints: false,
+                    constraints: true,
                     onUpdate: 'CASCADE',
                     onDelete: 'CASCADE',
-                    foreignKey: 'category_id',
-                    otherKey: 'post_id'
+                    foreignKey: 'category_id'
                 });
             }
         }

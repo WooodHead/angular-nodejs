@@ -23,6 +23,10 @@ header.main-header
 		// Navbar Right Menu
 		.navbar-custom-menu
 			ul.nav.navbar-nav
+				li
+					a(ng-href='/' target='_blank')
+						i.fa.fa-home
+						|  Home
 				// User Account: style can be found in dropdown.less
 				li.dropdown.user.user-menu(ng-if='authUser != null')
 					a.dropdown-toggle(ng-href='#' data-toggle='dropdown')

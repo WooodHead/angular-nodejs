@@ -1,0 +1,26 @@
+<div class="col-sm-9 col-md-9 col-lg-9" ng-controller="AuthController">
+    <div class="row">
+        <div class="col-sm-offset-4 col-sm-4 col-md-4 col-lg-4">
+            <form ng-submit="register()" class="form-horizontal" autocomplete="off">
+                <div class="form-group">
+                    <input type="text" ng-model="regForm.name" class="form-control" placeholder="Name">
+                    <p class="text-danger" ng-bind="errors.name"></p>
+                </div>
+                <div class="form-group">
+                    <input type="email" ng-model="regForm.email" ng-required="true" class="form-control" placeholder="Email">
+                    <p class="text-danger" ng-bind="errors.email"></p>
+                </div>
+                <div class="form-group">
+                    <input type="password" ng-model="regForm.password" ng-required="true" class="form-control" placeholder="Password">
+                    <p class="text-danger" ng-bind="errors.password"></p>
+                </div>
+                <div class="form-group">
+                    <input type="password" ng-model="regForm.password_confirmation" ng-required="true" class="form-control" placeholder="Password confirmed">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

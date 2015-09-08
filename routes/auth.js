@@ -105,10 +105,11 @@ router.post('/register', function(req, res) {
 		name: req.body.name,
 		email: req.body.email,
 		image: '/image/no-image.png',
-		password: passwordHash.generate(req.body.password)
+		password: req.body.password
 	};
-	models.User.create(data).then(function(user) {
 
+
+	models.User.create(data).then(function(user) {
 		//user.token = jwt.sign(user, process.env.APP_KEY);
 		user.token = jwt.sign(user, process.env.APP_KEY, {
 			expiresInMinutes: 1440 // expires in 24 hours

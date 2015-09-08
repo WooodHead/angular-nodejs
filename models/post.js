@@ -1,6 +1,8 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
+    var moment = require('moment');
+    //moment.lang('vi');
     var User = sequelize.import('./user');
     var Post = sequelize.define('Post', {
         name: DataTypes.STRING,
@@ -12,13 +14,23 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.INTEGER,
             references: {
                 model: User,
-                key: 'id',
-                onUpdate: 'CASCADE',
-                onDelete: 'SET NULL'
-            }
+                key: 'id'
+            },
+            onUpdate: 'CASCADE',
+            onDelete: 'SET NULL'
         },
         status: DataTypes.BOOLEAN
     }, {
+        defaultScope: {
+            order: 'id DESC'
+        },
+        scopes: {
+            isActive: {
+                where: {
+                    status: true
+                }
+            },
+        },
         classMethods: {
             associate: function(models) {
                 // associations can be defined here
@@ -28,12 +40,20 @@ module.exports = function(sequelize, DataTypes) {
                     constraints: false,
                     onUpdate: 'CASCADE',
                     onDelete: 'SET NULL',
-                    foreignKey: 'user_id'
+                    //foreignKey: 'user_id'
+                });
+
+                Post.hasMany(models.Comment, {
+                    as: 'comments',
+                    constraints: false,
+                    //foreignKey: 'post_id',
+                    onUpdate: 'CASCADE',
+                    onDelete: 'CASCADE'
                 });
 
                 Post.belongsToMany(models.Category, {
                     through: {
-                        model: 'post_categories',
+                        model: models.PostCategory,
                         unique: true
                     },
                     as: 'categories',
@@ -46,7 +66,7 @@ module.exports = function(sequelize, DataTypes) {
 
                 Post.belongsToMany(models.Tag, {
                     through: {
-                        model: 'post_tags',
+                        model: models.PostTag,
                         unique: true
                     },
                     as: 'tags',
@@ -57,21 +77,15 @@ module.exports = function(sequelize, DataTypes) {
                     otherKey: 'tag_id'
                 });
 
-                Post.hasMany(models.Comment, {
-                    as: 'comments',
-                    constraints: false,
-                    foreignKey: 'post_id',
-                    onUpdate: 'CASCADE',
-                    onDelete: 'CASCADE'
-                });
-            },
-            getListCategoryId: function() {
-                return this.categories.id;
+
             }
         },
         instanceMethods: {
-            method2: function() {
+            toJSON: function() {
+                var values = this.get();
 
+                values.due_date = moment(values.created_at).fromNow();
+                return values;
             }
         }
     });

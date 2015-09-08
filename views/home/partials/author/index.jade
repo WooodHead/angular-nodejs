@@ -1,0 +1,32 @@
+.col-sm-9.col-md-9.col-lg-9(ng-controller='AuthorController' ng-init='init()')
+	article(ng-repeat='post in posts')
+		br
+		|         
+		.col-md-2.col-sm-3.text-center
+			a(ng-href='/author/{{post.user.slug}}-{{post.user.id}}')
+				img.img-circle(ng-src='{{post.user.image}}' style='width:100px;height:100px')
+		|         
+		.col-md-10.col-sm-9
+			h3
+				a(ng-href='/p/{{post.slug}}-{{post.id}}' ng-bind='post.name')
+			|             
+			.row
+				.col-xs-12.col-sm-12.col-md-12.col-lg-12
+					p(ng-bind='post.description')
+					|                     
+					p.pull-right
+						a.s-tag(ng-repeat='tag in post.tags' ng-href='/tag/{{tag.slug}}-{{tag.id}}' ng-bind='tag.name')
+					|                     
+					ul.list-inline
+						li
+							i.fa.fa-clock-o
+							|  
+							small(ng-bind='post.due_date')
+						|                         
+						li
+							a(ng-href='/p/{{post.slug}}-{{post.id}}#comment')
+								i.fa.fa-comments
+								|  
+								small {{post.comment_count}} Comments
+			|             
+			br

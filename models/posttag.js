@@ -9,10 +9,10 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.INTEGER,
 			references: {
 				model: Tag,
-				key: 'id',
-				onUpdate: 'CASCADE',
-				onDelete: 'CASCADE'
-			}
+				key: 'id'
+			},
+			onUpdate: 'CASCADE',
+			onDelete: 'CASCADE'
 		},
 		post_id: {
 			type: DataTypes.INTEGER,
@@ -20,12 +20,13 @@ module.exports = function(sequelize, DataTypes) {
 			primaryKey: true,
 			references: {
 				model: Post,
-				key: 'id',
-				onUpdate: 'CASCADE',
-				onDelete: 'CASCADE'
-			}
+				key: 'id'
+			},
+			onUpdate: 'CASCADE',
+			onDelete: 'CASCADE'
 		}
 	}, {
+		tableName: 'post_tags',
 		classMethods: {
 			associate: function(models) {
 				// associations can be defined here				

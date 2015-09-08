@@ -5,25 +5,25 @@ module.exports = {
 		return queryInterface.createTable('post_tags', {
 			tag_id: {
 				allowNull: false,
-				primaryKey: true,
+				unique: true,
 				type: Sequelize.INTEGER,
 				references: {
 					model: 'tags',
-					key: 'id',
-					onUpdate: 'CASCADE',
-					onDelete: 'CASCADE'
-				}
+					key: 'id'
+				},
+				onUpdate: 'CASCADE',
+				onDelete: 'CASCADE'
 			},
 			post_id: {
 				type: Sequelize.INTEGER,
 				allowNull: false,
-				primaryKey: true,
+				unique: true,
 				references: {
 					model: 'posts',
-					key: 'id',
-					onUpdate: 'CASCADE',
-					onDelete: 'CASCADE'
-				}
+					key: 'id'
+				},
+				onUpdate: 'CASCADE',
+				onDelete: 'CASCADE'
 			},
 			createdAt: {
 				allowNull: false,

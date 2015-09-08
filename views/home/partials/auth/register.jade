@@ -1,0 +1,24 @@
+.col-sm-9.col-md-9.col-lg-9(ng-controller='AuthController')
+	.row
+		.col-sm-offset-4.col-sm-4.col-md-4.col-lg-4
+			form.form-horizontal(ng-submit='register()' autocomplete='off')
+				.form-group
+					input.form-control(type='text' ng-model='regForm.name' placeholder='Name')
+					|                     
+					p.text-danger(ng-bind='errors.name')
+				|                 
+				.form-group
+					input.form-control(type='email' ng-model='regForm.email' ng-required='true' placeholder='Email')
+					|                     
+					p.text-danger(ng-bind='errors.email')
+				|                 
+				.form-group
+					input.form-control(type='password' ng-model='regForm.password' ng-required='true' placeholder='Password')
+					|                     
+					p.text-danger(ng-bind='errors.password')
+				|                 
+				.form-group
+					input.form-control(type='password' ng-model='regForm.password_confirmation' ng-required='true' placeholder='Password confirmed')
+				|                 
+				.form-group
+					button.btn.btn-primary Register

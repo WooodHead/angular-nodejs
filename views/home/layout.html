@@ -1,27 +1,126 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en" ng-app="Beep">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Title Page</title>
+		<title>Home</title>
 
 		<!-- Bootstrap CSS -->
-		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="/assets/bower_components/bootstrap/dist/css/bootstrap.min.css">		
+		<!-- Font Awesome -->
+    	<link rel="stylesheet" href="/assets/bower_components/font-awesome/css/font-awesome.min.css">
 
-		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
-			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-		<![endif]-->
-	</head>
-	<body>
-		<h1 class="text-center">Hello World</h1>
+		<!-- Custom style -->
+		<link rel="stylesheet" href="/assets/dist/css/home.css">
 
 		<!-- jQuery -->
-		<script src="http://code.jquery.com/jquery.js"></script>
-		<!-- Bootstrap JavaScript -->
-		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		<script src="https://code.jquery.com/jquery.min.js"></script>		
+
+		<!-- Angularjs -->    
+    	<script src="/assets/bower_components/angular/angular.min.js"></script>
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    	<!--[if lt IE 9]>
+	      	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	      	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    	<![endif]-->
+	</head>
+	<body ng-controller="MainController" ng-init="getAuthenticatedUser()">
+		<div id="wrap">			
+			include header
+
+			<div id="masthead">
+		        <div class="container">
+		            <div class="row">
+		                <div class="col-sm-7">
+		                    <h1>Bootstrap <p class="lead"><span style="color:#CCFF33;">Blog</span> Themes and Templates</p></h1>
+		                </div>
+		                <div class="col-sm-5">
+		                <!-- ad space -->
+		                    <div class="pull-right well well-lg">
+		                        <div id="carbonads-container">
+		                            <div class="carbonad">
+		                                <div id="azcarbon">
+		                                    <h2>Ads</h2>
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div><!-- /cont -->
+		    </div>
+
+			<div class="container" id="main">
+				<div class="row">
+					<div ng-view></div>
+
+					<div class="col-sm-3 col-md-3 col-lg-3" ng-controller="RightController">
+		                <div class="panel panel-info box" ng-init="listCategory()">
+						  	
+						  	<div class="panel-heading"><i class="fa fa-newspaper-o"></i> Category</div>
+							<div class="list-group">
+								<a ng-repeat="category in categories" ng-href="/category/{{category.slug}}" class="list-group-item" ng-bind="category.name"></a>
+							</div>
+						</div>
+		            </div>
+				</div>
+			</div>			
+			<!-- Modal -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			  	<div class="modal-dialog" role="document">
+			  		<form ng-controller="AuthController" ng-submit="login()" autocomplete="off">
+				    	<div class="modal-content">
+				      		<div class="modal-header">
+				        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        		<h4 class="modal-title" id="myModalLabel">Login</h4>
+				      		</div>
+					      	<div class="modal-body">
+				                <div class="form-group">
+				                    <label for="email" class="control-label">Email</label>
+				                    <input type="email" ng-model="loginForm.email" class="form-control" placeholder="Email">
+				                    <p class="text-danger" ng-bind="errors.email"></p>
+				                </div>
+				                <div class="form-group">
+				                    <label for="password" class="control-label">Password</label>
+				                    <input type="password" ng-model="loginForm.password" class="form-control" placeholder="Password">
+				                    <p class="text-danger" ng-bind="errors.password"></p>
+				                </div>
+					      	</div>
+					      	<div class="modal-footer">
+					        	<span class="btn btn-default" data-dismiss="modal">Close</span>
+					        	<button class="btn btn-primary">Login</button>
+					      	</div>
+				    	</div>
+			    	</form>
+			  	</div>
+			</div>
+		</div>
+		
+		include footer
+
+		<!-- ngRoute -->
+	    <script src="/assets/bower_components/angular-route/angular-route.min.js"></script>
+	    <!-- Angular Animate -->
+	    <script src="/assets/bower_components/angular-animate/angular-animate.min.js"></script>		
+		<!-- Satellizer -->
+	    <script src="/assets/bower_components/angular-sanitize/angular-sanitize.min.js"></script>		
+	    <!-- Moment -->	    
+	    <script src="/assets/bower_components/moment/moment.js"></script>
+	    <script src="/assets/bower_components/angular-moment/angular-moment.min.js"></script>
+		<!-- Satellizer -->
+	    <script src="/assets/bower_components/satellizer/satellizer.min.js"></script>
+	    <!-- Storage -->
+	    <script src="/assets/bower_components/ngstorage/ngStorage.min.js"></script>
+		<!-- Restangular -->
+	    <script src="/assets/bower_components/lodash/lodash.min.js"></script>
+	    <script src="/assets/bower_components/restangular/dist/restangular.min.js"></script>
+
+		<!-- Bootstrap -->
+    	<script src="/assets/bower_components/AdminLTE/bootstrap/js/bootstrap.min.js"></script>
+		<!-- Angular App -->    
+    	<script src="/assets/dist/js/home.js"></script>
 	</body>
 </html>

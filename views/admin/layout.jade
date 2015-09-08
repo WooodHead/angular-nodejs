@@ -9,7 +9,7 @@ html(lang='en' ng-app='Beep')
 		// Tell the browser to be responsive to screen width
 		meta(content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport')
 		// Bootstrap 3.3.5
-		link(rel='stylesheet' href='/bower_components/AdminLTE/bootstrap/css/bootstrap.min.css')
+		link(rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
 		// Font Awesome
 		link(rel='stylesheet' href='/bower_components/font-awesome/css/font-awesome.min.css')
 		// Theme style
@@ -29,11 +29,16 @@ html(lang='en' ng-app='Beep')
 		// Summernote
 		link(rel='stylesheet' href='/bower_components/summernote/dist/summernote.css')
 		// Style
-		link(rel='stylesheet' href='/dist/css/qsoft.css')
+		link(rel='stylesheet' href='/dist/css/admin.css')
 		// Jquery
 		script(src='http://code.jquery.com/jquery.min.js')
 		// Angularjs
 		script(src='/bower_components/angular/angular.min.js')
+		|     
+		|     
+		script(src='/bower_components/angular-translate/angular-translate.min.js')
+		|     
+		script(src='/bower_components/angular-cookies/angular-cookies.min.js')
 		// HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
 		// WARNING: Respond.js doesn't work if you view the page via file://
 		//if lt IE 9
@@ -109,10 +114,10 @@ html(lang='en' ng-app='Beep')
 		|     
 		script(src='/bower_components/bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.min.js')
 		// Bootstrap
-		script(src='/bower_components/AdminLTE/bootstrap/js/bootstrap.min.js')
+		script(src='/bower_components/bootstrap/dist/js/bootstrap.min.js')
 		// AdminLTE App
 		script(src='/bower_components/AdminLTE/dist/js/app.min.js')
 		|     
 		script(src='/bower_components/AdminLTE/dist/js/demo.js')
 		// Angular App
-		script(src='/dist/js/app.js')
+		script(src='/dist/js/admin.js')

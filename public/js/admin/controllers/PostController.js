@@ -101,20 +101,18 @@ angular
 		$scope.remove = function(post) {
 
 			Post.one(post.id).remove().then(function(response) {
-				if (response.status) {
-					var index = $scope.posts.indexOf(post);
 
-					Notification.primary({
-						title: response.title,
-						message: response.message
-					});
-					$scope.posts.splice(index, 1);
-				}
+				var index = $scope.posts.indexOf(post);
+
+				Notification.primary({
+					title: response.title,
+					message: response.message
+				});
+				$scope.posts.splice(index, 1);
 
 			}, function(response) {
-				Notification({
+				Notification.error({
 					title: response.title,
-					type: response.type,
 					message: response.message
 				});
 

@@ -107,7 +107,10 @@ home.set('view engine', 'jade');
 home.use(logger('dev'));
 home.use(cookieParser());
 home.use(methodOverride());
-home.use(express.static(path.join(__dirname, 'public/home')));
+//home.use(express.static(path.join(__dirname, 'public/home')));
+home.use('/assets', express.static(path.join(__dirname, 'public')));
+home.use(express.static(path.join(__dirname, 'public')));
+home.get('/home/partials/:controller/:action?', angular.partials);
 home.get('*', angular.home);
 
 homeApi.use(bodyParser.json({
@@ -118,9 +121,14 @@ homeApi.use(bodyParser.urlencoded({
 	extended: true
 }));
 
+homeApi.use('/auth', require('./routes/home/auth'));
+homeApi.use('/author', require('./routes/home/author'));
+homeApi.use('/category', require('./routes/home/category'));
+homeApi.use('/post', require('./routes/home/post'));
+homeApi.use('/tag', require('./routes/home/tag'));
 
-home.listen(3000, function(req, res) {
-	console.log('App listening at http://localhost:%s', 3000);
+home.listen(8080, function(req, res) {
+	console.log('Home listening at http://localhost:%s', 8080);
 });
 
 app.listen(port, function(req, res) {

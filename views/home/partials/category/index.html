@@ -1,0 +1,24 @@
+<div class="col-sm-9 col-md-9 col-lg-9" ng-controller="CategoryController" ng-init="init()">
+    <article ng-repeat="post in posts">
+        <br />
+        <div class="col-md-2 col-sm-3 text-center">
+            <a ng-href="/author/{{post.user.slug}}-{{post.user.id}}"><img ng-src="{{post.user.image}}" style="width:100px;height:100px" class="img-circle"></a>
+        </div>
+        <div class="col-md-10 col-sm-9">
+            <h3><a ng-href="/p/{{post.slug}}-{{post.id}}" ng-bind="post.name"></a></h3>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <p ng-bind="post.description"></p>
+                    <p class="pull-right">
+                        <a ng-repeat="tag in post.tags" ng-href="/tag/{{tag.slug}}-{{tag.id}}" class="s-tag" ng-bind="tag.name"></a>
+                    </p>
+                    <ul class="list-inline">
+                        <li><i class="fa fa-clock-o"></i> <small ng-bind="post.due_date"></small></li>
+                        <li><a ng-href="/p/{{post.slug}}-{{post.id}}#comment"><i class="fa fa-comments"></i> <small>{{post.comment_count}} Comments</small></a></li>
+                    </ul>
+                </div>
+            </div>
+            <br>
+        </div>
+    </article>
+</div>

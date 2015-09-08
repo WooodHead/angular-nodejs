@@ -114,7 +114,9 @@ router.patch('/:post', function(req, res) {
 
 router.delete('/:post', function(req, res) {
 	models.Post.findById(req.params.post).then(function(post) {
-		post.destroy().then(function(post) {
+		post.destroy({
+			force: true
+		}).then(function() {
 			// now i'm gone :)
 			res.json({
 				message: 'Destroy success'

@@ -1,0 +1,45 @@
+<div class="col-sm-9 col-md-9 col-lg-9" ng-controller="PostController" ng-init="findPost()">
+	<h1 ng-bind="post.name"></h1>
+	<p><i class="fa fa-user"></i> <a ng-href="/author/{{post.user.slug}}-{{post.user.id}}" ng-bind="post.user.name"></a> | <i class="fa fa-clock-o"></i> {{post.created_at}}</p>
+	<div class="content">
+		<div ng-bind-html="post.content"></div>
+
+		<p><i class="fa fa-tags"></i> Tag: <a class="s-tag" ng-repeat="tag in post.tags" ng-bind="tag.name" ng-href="/tag/{{tag.slug}}-{{tag.id}}"></a></p>
+
+		<p>Category: <a class="s-tag" ng-repeat="category in post.categories" ng-bind="category.name" ng-href="/category/{{category.slug}}"></a></p>
+	</div>
+	<div class="panel panel-default box" id="comment">
+	  	<div class="panel-heading">
+			<h3 class="panel-title">
+				Comment
+			</h3>
+	  	</div>
+	  	<div class="box-body">
+			<div class="comment">
+				<form ng-controller="CommentController" ng-submit="comment()" ng-init="listComment()" ng-show="authUser">
+					<div class="row">
+						<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+							<textarea rows="2" ng-model="commentForm.comment" class="form-control"></textarea>
+			  			</div>
+				  		<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+				  			<button class="btn btn-primary pull-right">Comment</button>
+						</div>
+		  			</div>
+		  		</form>
+
+				<div class="media" ng-repeat="comment in comments | orderBy:'-created_at'">
+					<a class="pull-left" ng-href="#">
+						<img ng-src="{{comment.user.image}}" width="80px" class="img-circle">
+					</a>
+					<div class="media-body">
+						<small><em><strong ng-bind="comment.user.name"></strong> say:</em></small>
+						<div class="well well-sm">
+							<p ng-bind="comment.content"></p>
+						</div>
+						<small><i class="fa fa-clock-o"></i> {{comment.due_date}}</small>
+					</div>
+				</div>
+	  		</div>
+	  	</div>
+	</div>
+</div>
