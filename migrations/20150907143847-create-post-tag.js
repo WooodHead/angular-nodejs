@@ -5,7 +5,6 @@ module.exports = {
 		return queryInterface.createTable('post_tags', {
 			tag_id: {
 				allowNull: false,
-				unique: true,
 				type: Sequelize.INTEGER,
 				references: {
 					model: 'tags',
@@ -17,7 +16,6 @@ module.exports = {
 			post_id: {
 				type: Sequelize.INTEGER,
 				allowNull: false,
-				unique: true,
 				references: {
 					model: 'posts',
 					key: 'id'
