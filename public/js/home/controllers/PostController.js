@@ -1,8 +1,9 @@
 angular
 	.module('PostController', ['ngSanitize'])
-	.controller('PostController', function($scope, $routeParams, Post) {
+	.controller('PostController', function($scope, $rootScope, $routeParams, Post) {
 		$scope.findPost = function() {
 			Post.one($routeParams.id).get().then(function(data) {
+				$rootScope.page_title = data.name;
 				$scope.post = data;
 			});
 		}

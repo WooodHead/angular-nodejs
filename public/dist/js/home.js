@@ -133,9 +133,10 @@ angular
 	});
 angular
 	.module('AuthorController', [])
-	.controller('AuthorController', function($scope, $routeParams, Author) {
+	.controller('AuthorController', function($scope, $rootScope, $routeParams, Author) {
 		$scope.init = function() {
 			Author.one($routeParams.id).get().then(function(data) {
+				$rootScope.page_title = 'Author: ' + data.user.name;
 				$scope.user = data.user;
 				$scope.posts = data.posts.data;
 			});
@@ -143,10 +144,11 @@ angular
 	});
 angular
 	.module('CategoryController', [])
-	.controller('CategoryController', function($scope, $routeParams, Category) {
+	.controller('CategoryController', function($scope, $rootScope, $routeParams, Category) {
 		$scope.init = function() {
 			Category.one($routeParams.slug).get().then(function(data) {
-				$scope.category = data.category;
+				$rootScope.page_title = 'Category: ' + data.cat.name;
+				$scope.category = data.cat;
 				$scope.posts = data.posts.data;
 			});
 		}
@@ -171,8 +173,9 @@ angular
 	});
 angular
 	.module('IndexController', [])
-	.controller('IndexController', function($scope, Post) {
+	.controller('IndexController', function($scope, $rootScope, Post) {
 		$scope.init = function() {
+			$rootScope.page_title = 'Home';
 			Post.one().get().then(function(response) {
 				$scope.posts = response.data;
 			});
@@ -222,9 +225,10 @@ angular
     });
 angular
 	.module('PostController', ['ngSanitize'])
-	.controller('PostController', function($scope, $routeParams, Post) {
+	.controller('PostController', function($scope, $rootScope, $routeParams, Post) {
 		$scope.findPost = function() {
 			Post.one($routeParams.id).get().then(function(data) {
+				$rootScope.page_title = data.name;
 				$scope.post = data;
 			});
 		}
@@ -255,9 +259,10 @@ angular
 	});
 angular
 	.module('TagController', [])
-	.controller('TagController', function($scope, $routeParams, Tag) {
+	.controller('TagController', function($scope, $rootScope, $routeParams, Tag) {
 		$scope.init = function() {
 			Tag.one($routeParams.id).get().then(function(data) {
+				$rootScope.page_title = 'Tag: ' + data.tag.name;
 				$scope.tag = data.tag;
 				$scope.posts = data.posts.data;
 			});
