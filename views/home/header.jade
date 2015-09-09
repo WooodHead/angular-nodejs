@@ -23,7 +23,8 @@ header.navbar.navbar-bright.navbar-fixed-top.affix-top(role='banner' data-spy='a
 					a(data-toggle='modal' data-target='#myModal' ng-href='#') Log in
 				|                 
 				li(ng-if='authUser != null' ng-class="{active:isActive('/users/view/' + authUser.id)}")
-					a(ng-href='#') {{authUser.name}}
+					a(ng-href='#')
+						img.img-circle(ng-src='{{authUser.image}}' width='20px')
 				|                 
 				li(ng-if='authUser != null' ng-click='logout()')
 					a(ng-href='#') Log out
