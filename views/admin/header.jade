@@ -27,6 +27,9 @@ header.main-header
 					a(ng-href='http://localhost:8080/' target='_blank')
 						i.fa.fa-home
 						|  Home
+				|                 
+				li(ng-if='authUser == null' ng-class="{active:isActive('/admin/auth/login')}")
+					a(ng-href='/admin/auth/login') Log in
 				// User Account: style can be found in dropdown.less
 				li.dropdown.user.user-menu(ng-if='authUser != null')
 					a.dropdown-toggle(ng-href='#' data-toggle='dropdown')
