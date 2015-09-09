@@ -1,0 +1,20 @@
+.col-sm-9.col-md-9.col-lg-9
+	.row
+		.col-sm-4.col-md-4.col-lg-4.col-md-offset-4
+			form(name='loginForm' ng-controller='AuthController' ng-submit='login()' autocomplete='off')
+				.form-group
+					label.control-label(for='email') Email
+					|                     
+					input.form-control(type='email' ng-model='loginForm.email' placeholder='Email')
+					|                     
+					p.text-danger(ng-bind='errors.email')
+				|                 
+				.form-group
+					label.control-label(for='password') Password
+					|                     
+					input.form-control(type='password' ng-model='loginForm.password' placeholder='Password')
+					|                     
+					p.text-danger(ng-bind='errors.password')
+				|                 
+				.form-group
+					button.btn.btn-primary(type='submit') Login
