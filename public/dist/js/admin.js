@@ -112,6 +112,12 @@ angular
 angular
 	.module('AuthController', [])
 	.controller('AuthController', function($scope, $location, $localStorage, Auth) {
+		$scope.init = function() {
+			if (typeof $localStorage.token !== 'undefined') {
+				$location.path('/admin/dashboard');
+				return null;
+			}
+		};
 
 		$scope.login = function() {
 			var credentials = {
@@ -129,7 +135,7 @@ angular
 				console.log(err);
 				$scope.errors = err.data.errors;
 			});
-		}
+		};
 
 		$scope.register = function() {
 			var credentials = {
@@ -147,7 +153,7 @@ angular
 				console.log(err);
 				$scope.errors = err.data.errors;
 			});
-		}
+		};
 	});
 angular
 	.module('CategoryController', [])
@@ -332,16 +338,15 @@ angular
 			}
 
 			if (typeof $localStorage.token === 'undefined') {
-				//$location.path('/admin/auth/login');
+				$location.path('/admin/auth/login');
 				return null;
 			}
 
 			Auth.one('me').get().then(function(user) {
 				$scope.authUser = user;
 			}, function(err) {
-				//$location.path('/admin/auth/login');
 				delete $localStorage.token;
-				console.log(err);
+				$location.path('/admin/auth/login');
 			});
 		};
 

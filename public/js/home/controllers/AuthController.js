@@ -6,7 +6,7 @@ angular
 			var credentials = {
 				email: $scope.loginForm.email,
 				password: $scope.loginForm.password,
-			}
+			};
 
 			Auth.one().post('login', credentials).then(function(response) {
 				$scope.loginForm = {};
@@ -19,7 +19,7 @@ angular
 			}, function(err) {
 				$scope.errors = err.data.errors;
 			});
-		}
+		};
 
 		$scope.register = function() {
 
@@ -36,5 +36,5 @@ angular
 				$scope.errors = response.data.errors;
 			});
 
-		}
+		};
 	});

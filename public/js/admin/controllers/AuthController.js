@@ -1,6 +1,12 @@
 angular
 	.module('AuthController', [])
 	.controller('AuthController', function($scope, $location, $localStorage, Auth) {
+		$scope.init = function() {
+			if (typeof $localStorage.token !== 'undefined') {
+				$location.path('/admin/dashboard');
+				return null;
+			}
+		};
 
 		$scope.login = function() {
 			var credentials = {
@@ -18,7 +24,7 @@ angular
 				console.log(err);
 				$scope.errors = err.data.errors;
 			});
-		}
+		};
 
 		$scope.register = function() {
 			var credentials = {
@@ -36,5 +42,5 @@ angular
 				console.log(err);
 				$scope.errors = err.data.errors;
 			});
-		}
+		};
 	});

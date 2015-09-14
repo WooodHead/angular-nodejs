@@ -134,9 +134,9 @@ homeApi.use('/post', require('./routes/home/post'));
 homeApi.use('/tag', require('./routes/home/tag'));
 
 home.listen(8080, function(req, res) {
-	console.log('Home listening at http://localhost:%s', 8080);
+	console.log('Home page listening at http://localhost:%s', 8080);
 });
 
 app.listen(port, function(req, res) {
-	console.log('App listening at http://localhost:%s', port);
+	console.log('Admin page listening at http://localhost:%s', port);
 });

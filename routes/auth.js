@@ -16,7 +16,7 @@ router.get('/me', function(req, res, next) {
 		req.token = bearerToken;
 		next();
 	} else {
-		res.send(403);
+		res.status(403).end();
 	}
 }, function(req, res) {
 	models.User.findOne({
@@ -24,7 +24,10 @@ router.get('/me', function(req, res, next) {
 			token: req.token
 		}
 	}).then(function(user) {
-		res.json(user);
+		if (user !== null)
+			res.json(user);
+		else
+			res.status(403).end();
 	});
 });
 
